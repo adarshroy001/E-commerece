@@ -49,7 +49,7 @@ function LocationButtuon() {
   };
   return (
     <div className='Location flex border-[1px] h-[50px] rounded-md ml-5 border-[rgba(0,0,0,0.2)]' >
-      <Button className='p-2 w-[160px]  min-w-[160px]' onClick={() => { setIsopen(true)  ;setCountryList(context.countrylist);}}  >
+      <Button className='p-2 w-[160px]  min-w-[160px] !capitalize' onClick={() => { setIsopen(true)  ;setCountryList(context.countrylist);}}  >
         <div className="locationName flex flex-col text-left w-full ">
           <span className='text-[12px] text-[rgba(0,0,0,0.5)] leading-4 '>Your Location</span>
           <span className='text-[12px] text-[#233a95] font-[700] leading-4'>{context.selectedCountry===''?'Select Location': context.selectedCountry.length>10?
