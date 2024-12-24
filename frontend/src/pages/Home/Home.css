@@ -1,0 +1,44 @@
+.Slide-Wrapper{
+    width: 80vw;
+    margin: auto;
+    background-color: yellow;
+    border-radius: 0%;
+    height: 450px;
+}
+/* .mySwiper{
+   margin: 0px !important;
+} */
+/* .slide-img{
+    width:100%;
+    height: 100%;
+    border-radius: 20px;  
+} */
+.swiper-button-next,
+.swiper-button-prev {
+    color: rgba(0, 0, 0, 0.6) !important ; /* Text color */
+    background-color: #fff; /* Semi-transparent black background */
+    border-radius: 100%; 
+    width: 40px !important; /* Button size */
+    height: 40px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    font-size: 18px !important; /* Increase/decrease arrow size */
+    font-weight: bold;
+}
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    background-color: rgba(232, 225, 225, 0.6); /* Darker background on hover */
+    transition: 0.3s ease-in-out; /* Smooth transition */
+}
+.swiper-button-next:active,
+.swiper-button-prev:active {
+    background-color: rgba(232, 225, 225, 0.6); /* Darker background on hover */
+    transition: 0.3s ease-in-out; /* Smooth transition */
+    transform: scale(.9); /* Slight zoom-in effect */
+}
+

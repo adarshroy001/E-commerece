@@ -1,0 +1,42 @@
+/* .swiper-button-next,
+.swiper-button-prev {
+  @apply text-gray-600 bg-white shadow-md rounded-full w-10 h-10 flex items-center justify-center transition-transform;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  @apply text-lg font-bold;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  @apply bg-gray-200 text-gray-900 shadow-lg;
+}
+
+.swiper-button-next:active,
+.swiper-button-prev:active {
+  @apply scale-90;
+} */
+
+
+
+.swiper-button-next,
+.swiper-button-prev {
+  @apply text-gray-600 bg-white rounded-full w-12 h-12 flex items-center justify-center shadow-md;
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%);
+}
+
+.swiper-button-next {
+  right: -15px; /* Positioned slightly outside the carousel */
+}
+
+.swiper-button-prev {
+  left: -15px;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  @apply bg-gray-200;
+}
+

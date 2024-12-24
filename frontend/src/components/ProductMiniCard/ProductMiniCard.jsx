@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import food_5 from '../../assets/food_5.png';
 import { BsArrowsFullscreen } from "react-icons/bs";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Rating from '@mui/material/Rating';
+import ProductMegaCard from '../ProductMegaCard/ProductMegaCard'
 
 function ProductMiniCard() {
+  const [modelopen ,setModelOpen] = useState(false);
+  const handleToggleDropdown = () => {
+    setModelOpen((prev) => !prev);
+  };
   return (
-    <div className="w-[300px] bg-white shadow-lg  rounded-lg overflow-hidden m-1 mt-5 group  ">
+    <div className="w-[300px] bg-white shadow-lg  rounded-lg overflow-hidden m-1 mt-5 group hover:scale-[.99] hover:border-[#c9dcde] hover:border  ">
       {/* Badge Section */}
       <div className="relative ">
         <div className="absolute top-2 left-2 bg-mypink text-white text-xs font-bold py-1 px-2.5 rounded  ">
@@ -17,8 +22,8 @@ function ProductMiniCard() {
           Best Seller
         </div>
         <div className='absolute top-4 right-2 opacity-0 invisible translate-y-10 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-500 ease-in-out ' >
-          <div className="absolute FullScreen top-3 right-2 border border-[#f6f5f5] text-[#71778e] bg-white text-lg  w-10 h-10 font-bold  rounded-full flex justify-center items-center hover:bg-myblue hover:text-white hover:border-myblue active:scale-95 ">
-           <BsArrowsFullscreen />
+          <div className="absolute FullScreen top-3 right-2 border border-[#f6f5f5] text-[#71778e] bg-white text-lg  w-10 h-10 font-bold  rounded-full flex justify-center items-center hover:bg-myblue hover:text-white hover:border-myblue active:scale-95 "onClick={handleToggleDropdown}>
+              <BsArrowsFullscreen />
           </div>
           <div className="absolute WishList top-14 right-2 border border-[#f6f5f5] text-[#71778e] bg-white text-lg  w-10 h-10 font-bold  rounded-full flex justify-center items-center hover:bg-myblue hover:text-white hover:border-myblue active:scale-95">
             <FavoriteBorderIcon />

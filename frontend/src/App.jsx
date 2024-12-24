@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import  Home from './pages/Home';
+import  Home from './pages/Home/Home';
 import Header from './components/Header/Header';
 import { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
