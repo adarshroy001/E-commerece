@@ -19,7 +19,7 @@ function ProductMegaCard() {
     } , [ProductData])
 
     return (
-        <div className="Wrapper min:w-[300px] w-[90vw] sm:w-[95%] lg:w-[65%] bg-white shadow-2xl rounded-lg overflow-hidden m-auto mt-6 pt-4 sm:pt-8 pb-4 sm:pb-8 mb-6 z-50 relative">
+        <div className="Wrapper min:w-[300px] w-[90vw] sm:w-[95%] lg:w-[65%] bg-white border border-gray-200 sm:border-gray-50 shadow-md sm:shadow-2xl rounded-lg overflow-hidden m-auto mt-6 pt-4 sm:pt-8 pb-4 sm:pb-8 mb-6 z-10 relative">
             <div className="Title w-[84%] border-b sm:w-[90%] mx-auto relative">
                 <p className=" text-lg sm:text-2xl font-semibold text-gray-800 mx-3">
                     All Natural Italian-Style Chicken Meatballic
@@ -50,7 +50,7 @@ function ProductMegaCard() {
                               ProductData    
                         }
                     </p>
-                    <div className="Buttons flex ml-12 mt-2 sm:mt-4 justify-start gap-3 ">
+                    <div className="Buttons flex ml-12 mt-2 sm:mt-4 justify-start gap-1 sm:gap-3 ">
                         <button className="mt-4 h-11 w-11 bg-[#edeef5]  text-sm font-semibold  rounded-full active:scale-90 transition">
                             <RemoveIcon />
                         </button>
@@ -58,12 +58,12 @@ function ProductMegaCard() {
                         <button className="mt-4 h-11 w-11 bg-[#edeef5]  text-sm font-semibold  rounded-full active:scale-90 transition">
                             <AddIcon />
                         </button>
-                        <button className="mt-4 px-10 sm:px-4 md:px-10 bg-myblue text-white text-sm font-semibold py-2 rounded-3xl border border-myblue active:scale-95 transition hover:bg-[#1d2d63]">
+                        <button className="mt-4 px-10 sm:px-4 md:px-10 bg-myblue text-white text-sm font-semibold py-2 rounded-3xl border border-myblue active:scale-95 transition sm:hover:bg-[#1d2d63]">
                             Add to cart
                         </button>
                     </div>
                     <div className="wishlistButton ml-12 mt-5 sm:mt-7">
-                        <button className=" h-9  px-3 hover:bg-[#edeef5] border  border-[#e2e3eb]  rounded-3xl active:scale-95 transition">
+                        <button className=" h-9  px-3 sm:hover:bg-[#edeef5] border  border-[#e2e3eb]  rounded-3xl active:scale-95 transition">
                             <span><FavoriteBorderIcon className='!text-base !font-normal' /></span> <span className='text-sm font-normal'>ADD TO FAVOURITE </span>
                         </button>
                     </div>

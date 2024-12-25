@@ -4,6 +4,7 @@ import  Home from './pages/Home/Home';
 import Header from './components/Header/Header';
 import { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import BottomNavv from './components/bottomNav/BottomNavv';
 
 
 const MyContext = createContext();
@@ -33,10 +34,11 @@ function App() {
   return (
   <BrowserRouter> 
   <MyContext.Provider value={values}>
-  {/* <Header/> */}
+    <Header/>
     <Routes>
       <Route path='/' exact={true} element={<Home/>}/>
     </Routes>
+    <BottomNavv/>
     </MyContext.Provider>
   </BrowserRouter>
   );

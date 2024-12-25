@@ -8,45 +8,63 @@ import SearchBox from './SearchBox';
 import IndividualCatg from './IndividualCatg';
 import AllCatg from './Allcatg';
 import { MyContext } from '../../App';
+import { IoMenuSharp } from "react-icons/io5";
+import logo2 from '../../Assets/logo2.png'
 
 function Header() {
-    const context = useContext(MyContext) ;
+  const context = useContext(MyContext);
 
   return (
-    <div className="topHeader w-full  bottom-1 border-solid border-[rgba(0,0,0,.1)]">
-      <div className="top-strip container bg-myyellow text-[12px] font-semibold pt-2 pb-2 min-w-[100%] text-white">
-        <p className='mb-0 mt-0 text-center'>
-          Use Code : "<b>NITJSR</b>"  for additionally 10% off
-        </p>
+    <div className="topHeader w-full border-solid border-[rgba(0,0,0,.1)] bg-white sticky z-50 top-0 ">
+      <div className="top-strip bg-myyellow ">
+        <p className='mb-0 mt-0 text-center text-sm font-medium sm:text-base md:text-lg sm:font-semibold pt-2 pb-2  text-white'>
+          Use Code : <span className='text-center text-sm font-semibold sm:text-base md:text-lg sm:font-semibold'>"NITJSR"</span> for additionally 10% off
+        </p> 
       </div>
-      <div className="header w-full flex mt-4 bg-white">
-        <div className="firstHalf w-[20%] h-[50px] flex justify-end">
-          <div className='w-1/2 h-full'><Link to={'/'}> <img src={logo} className='h-full p-1' /> </Link> </div>
+      <nav className="header w-full block lg:hidden  p-3 border-b bg-white  border-[rgba(0,0,0,.1)] ">
+        <div className='flex justify-around items-center '>
+         <div><IoMenuSharp className='text-4xl text-[#1d1d4b]'/></div>
+         <div className='w-full flex justify-center'><img src={logo2} className='w-28' /></div>
+         <div><button className='h-10 w-10 sm:h-[45px] sm:w-[45px]  sm:border rounded-full flex justify-center items-center bg-[#fff1ee] sm:active:bg-[#ffccc1] active:scale-[.95]  border-[rgba(0,0,0,0.2)]'>  <BsBag className='text-2xl sm:text-2xl text-[#ea2b0f]' /></button></div>
         </div>
-        <div className="midHalf flex w-[60%] items-center">
-            {
-            context.countrylist.length!==0 && <LocationButton />
-            }
-            <SearchBox  Width="w-[60%]"/>
-        </div>
-        <div className="lastHalf w-[20%] flex items-center justify-start  gap-7">
-          <button className='h-[45px] w-[45px] min-h-[45px] min-w-[45px]  border rounded-full flex justify-center items-center active:bg-gray-300  border-[rgba(0,0,0,0.2)]'>  <CiUser className='text-3xl active:text-2xl' /></button>
-          <div className="cartTab flex justify-center items-center gap-1">
-            <div className='Price  inline-block text-[18px] text-[rgba(0,0,0,0.8)] font-medium' >₹567</div>
-            <div className="relative">
+      </nav>
+      <nav className='navLarge p-3 hidden lg:block '>
+        <div className='flex gap-6 xl:gap-16 items-center justify-center'>
+         <div className='w-fit flex justify-center'><img src={logo2} className='w-28 lg:w-32 xl:w-32' /></div>
+         <div className='w-fit'>{ context.countrylist.length !== 0 && <LocationButton />}  </div>
+         <div className='w-2/5'> <SearchBox Width='w-[100%]'/></div>
+          <div className='w-fit '>
+             <button className='h-[45px] w-[45px] min-h-[45px] min-w-[45px]  border rounded-full flex justify-center items-center active:bg-gray-300  border-[rgba(0,0,0,0.2)]'>  <CiUser className='text-3xl active:text-2xl' /></button>
+          </div>
+          <div className='Price w-fit pl-1 pr-1  text-[18px] text-[rgba(0,0,0,0.8)] font-medium' >₹567</div>
+          <div className="relative w-fit ">
               <button className='h-[45px] w-[45px] min-h-[45px] min-w-[45px]  border rounded-full flex justify-center items-center bg-[#fff1ee] active:bg-[#ffccc1]   border-[rgba(0,0,0,0.2)]'>  <BsBag className='text-2xl text-[#ea2b0f] active:text-xl ' /></button>
               <span className="count absolute top-[-0.4rem] right-[-0.5rem]  text-center  rounded-full bg-[#ea2b0f] text-white h-[1.5rem] w-[1.5rem] text-sm">01</span>
             </div>
-          </div>
-        </div>
-
+        </div> 
+      </nav>
+      <div className="container flex  items-center mt-4  pb-2 pt-2  border-b-[1px]  w-[100%]  min-w-[100%]">
+        <AllCatg />
+        <IndividualCatg />
       </div>
-        <div className="container flex  items-center mt-4  pb-2 pt-2  border-b-[1px]  w-[100%]  min-w-[100%]">
-          <AllCatg />
-          <IndividualCatg />
-        </div>
     </div>
   )
 }
 
 export default Header
+
+
+{/* <div className="firstHalf w-[20%] h-[50px] flex justify-end">
+          <div className='w-1/2 h-full'><Link to={'/'}> <img src={logo} className='h-full p-1' /> </Link> </div>
+        </div> */}
+        {/* <div className="midHalf flex w-[60%] items-center">
+          {
+            context.countrylist.length !== 0 && <LocationButton />
+          }
+          <SearchBox Width="w-[60%]" />
+        </div> */}
+        {/* <div className="lastHalf w-[20%] flex items-center justify-start  gap-7">
+          <div className="cartTab flex justify-center items-center gap-1">
+            
+          </div>
+        </div> */}

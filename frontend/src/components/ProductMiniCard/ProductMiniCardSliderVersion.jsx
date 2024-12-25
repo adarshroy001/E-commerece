@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BsArrowsFullscreen } from "react-icons/bs";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Rating from '@mui/material/Rating';
@@ -10,8 +10,16 @@ function ProductMiniCardSliderVersion({ className = '' }) {
     setModelOpen((prev) => !prev);
   };
 
+  const [ProductData, SetProductData] = useState('Angie’s Boomchick Sweet & Salty Kettle Corn')
+  const handleProductdata =()=>{
+      SetProductData(ProductData.substring(0,28) + '...' )
+  }
+  useEffect(()=>{
+      ProductData.length > 28 ? handleProductdata() : '' ;
+  } , [ProductData])
+
   return (
-    <div className={`w-full bg-white shadow-lg rounded-lg overflow-hidden group hover:scale-[.99] hover:border-[#c9dcde] hover:border transition ${className}`}>
+    <div className={`w-full bg-white shadow-lg rounded-lg overflow-hidden group sm:hover:scale-[.99] sm:hover:border-[#c9dcde] sm:hover:border transition ${className}`}>
       {/* Badge Section */}
       <div className="relative">
         <div className="absolute top-2 left-2 bg-mypink text-white text-xs font-bold py-1 px-2.5 rounded">
@@ -20,14 +28,14 @@ function ProductMiniCardSliderVersion({ className = '' }) {
         <div className="absolute top-9 left-2 bg-[#71778e] text-white text-xs font-bold py-1 px-2.5 rounded">
           Best Seller
         </div>
-        <div className="absolute top-4 right-2 opacity-0 invisible translate-y-10 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-500 ease-in-out">
+        <div className="absolute top-1 right-1 sm:top-4 sm:right-2 sm:opacity-0 sm:invisible sm:translate-y-10 sm:group-hover:opacity-100 sm:group-hover:visible sm:group-hover:translate-y-0 transition-all duration-500 ease-in-out">
           <button
-            className="absolute top-3 right-2 border border-[#f6f5f5] text-[#71778e] bg-white text-lg w-10 h-10 rounded-full flex justify-center items-center hover:bg-myblue hover:text-white hover:border-myblue active:scale-95"
+            className="absolute top-3 right-2 border border-[#f6f5f5] text-[#71778e] bg-white text-lg w-10 h-10 rounded-full flex justify-center items-center sm:hover:bg-myblue sm:hover:text-white sm:hover:border-myblue active:scale-95"
             onClick={handleToggleDropdown}
           >
             <BsArrowsFullscreen />
           </button>
-          <button className="absolute top-14 right-2 border border-[#f6f5f5] text-[#71778e] bg-white text-lg w-10 h-10 rounded-full flex justify-center items-center hover:bg-myblue hover:text-white hover:border-myblue active:scale-95">
+          <button className="absolute top-14 right-2 border border-[#f6f5f5] text-[#71778e] bg-white text-lg w-10 h-10 rounded-full flex justify-center items-center sm:hover:bg-myblue sm:hover:text-white sm:hover:border-myblue active:scale-95">
             <FavoriteBorderIcon />
           </button>
         </div>
@@ -41,7 +49,7 @@ function ProductMiniCardSliderVersion({ className = '' }) {
       {/* Content Section */}
       <div className="p-4">
         <h3 className="text-sm sm:text-base md:text-base lg:text-lg font-semibold text-gray-800">
-          Angie’s Boomchickapop Sweet & Salty Kettle Corn
+          {ProductData}
         </h3>
         <p className="text-xs text-green-600 font-bold mt-1">IN STOCK</p>
         <div className="flex items-center mt-2">
@@ -51,7 +59,7 @@ function ProductMiniCardSliderVersion({ className = '' }) {
           <span className="text-gray-400 line-through text-xs sm:text-sm">$4.29</span>
           <span className="text-red-500 text-sm sm:text-lg font-semibold ml-2">$3.29</span>
         </div>
-        <button className="mt-4 w-full bg-white text-mypink text-xs sm:text-sm font-semibold py-2 rounded-3xl border border-mypink hover:text-white hover:bg-mypink transition active:scale-95">
+        <button className="mt-4 w-full select-none bg-mypink text-white sm:bg-white sm:text-mypink text-xs sm:text-sm font-semibold py-2 rounded-3xl sm:border border-mypink hover:text-white  hover:bg-mypink transition active:scale-95">
           Add to cart
         </button>
       </div>

@@ -27,8 +27,8 @@ function ProductSlider() {
     <div className="w-[90vw] sm:w-[85vw] mx-auto mt-8    ">
       {/* Header */}
       <div className="flex justify-between items-center ">
-        <p className="text-2xl font-semibold text-gray-800">POPULAR PRODUCTS</p>
-        <button className=" h-8  px-3 hover:bg-[#edeef5] border  border-[#e2e3eb]  rounded-3xl active:scale-95 transition">
+        <p className=" capitalize text-xl font-bold sm:uppercase  sm:text-2xl sm:font-semibold  text-gray-800">Popular Products</p>
+        <button className=" h-8  px-3 sm:hover:bg-[#edeef5] border  border-[#e2e3eb]  rounded-3xl active:scale-95 transition">
            <span className='text-sm text-gray-600 font-normal text-center'>View More </span><span className="text-gray-600">&rarr;</span>
         </button>
       </div>

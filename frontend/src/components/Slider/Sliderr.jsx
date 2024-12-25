@@ -30,18 +30,15 @@ function Sliderr() {
 
 
   return (
-    <div className="Slide-Wrapper w-[90vw] sm:w-[85vw]  h-[35vh] sm:h-[300px] md:h-[450px] m-auto mt-[20px] rounded-md">
+    <div className="Slide-Wrapper w-[90vw] sm:w-[85vw]  h-[25vh] sm:h-[300px] md:h-[450px] m-auto mt-[20px] rounded-md">
     <Swiper
         loop={true}
-        scrollbar={{
-          hide: true,
-        }}
         autoplay={{
           delay: 4000,
           disableOnInteraction: false,
         }}
         navigation={isNavigationEnabled}
-        modules={[Scrollbar,Navigation,Autoplay]}
+        modules={[Navigation,Autoplay]}
         className="mySwiper w-full h-full rounded-md"
       >
         <SwiperSlide>
