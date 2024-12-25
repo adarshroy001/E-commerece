@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect ,useState } from "react";
 import "./sliderr.css";
 import slider from "../../assets/slider.png";
 //Swiper
@@ -10,10 +10,27 @@ import 'swiper/css/scrollbar';
 
 
 function Sliderr() {
+    const [isNavigationEnabled, setIsNavigationEnabled] = useState(true);
+    useEffect(()=>{
+      const handleResize = ()=>{
+        setIsNavigationEnabled(window.innerWidth >= 640);
+      }
+      // Initial check
+    handleResize();
+
+    // Add resize event listener
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+      
+    },[])
 
 
   return (
-    <div className="Slide-Wrapper">
+    <div className="Slide-Wrapper w-[90vw] sm:w-[85vw]  h-[35vh] sm:h-[300px] md:h-[450px] m-auto mt-[20px] rounded-md">
     <Swiper
         loop={true}
         scrollbar={{
@@ -23,18 +40,18 @@ function Sliderr() {
           delay: 4000,
           disableOnInteraction: false,
         }}
-        navigation={true}
+        navigation={isNavigationEnabled}
         modules={[Scrollbar,Navigation,Autoplay]}
-        className="mySwiper"
+        className="mySwiper w-full h-full rounded-md"
       >
         <SwiperSlide>
-          <img src={slider} alt="Slide 1 w-[900px] h-[600px]" className="slide-img" />
+          <img src={slider}  className="slide-img w-full h-full rounded-md " />
         </SwiperSlide>
         <SwiperSlide className="slide-item">
-          <img src={slider} alt="Slide 2 w-[900px] h-[600px]" className="slide-img" />
+          <img src={slider}  className="slide-img w-full h-full rounded-md" />
         </SwiperSlide>
         <SwiperSlide className="slide-item">
-          <img src={slider} alt="Slide 3 w-[900px] h-[600px]" className="slide-img" />
+          <img src={slider}  className="slide-img w-full h-full rounded-md" />
         </SwiperSlide>
     </Swiper>
     </div>
