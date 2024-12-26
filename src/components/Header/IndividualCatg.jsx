@@ -37,7 +37,7 @@ function IndividualCatg() {
               <img src={Essential} className="w-7 h-7 sm:w-8 sm:h-8" />
                 <p className='flex'><p className='text-sm sm:text-sm md:text-base lg:text-md' >College</p> <p className='text-sm sm:text-sm md:text-base lg:text-md' >Essential</p></p> 
           </Link>
-          <div className="subdropdown w-[170px] text-base font-medium absolute left-9 top-[100%] hidden active:block sm:active:hidden sm:group-hover:block bg-white rounded shadow-md pt-3 pb-3 ">
+          <div className="subdropdown w-[120px] lg:w-[150px] text-base font-medium absolute left-9 top-[100%] hidden active:block sm:active:hidden sm:group-hover:block bg-white rounded shadow-md pt-3 pb-3 ">
             <Link to="/Essential">
               <Button className="transition ease-in-out sm:hover:bg-[#f0faff] duration-200 !no-underline !rounded-sm w-full !text-[rgba(0,0,0,0.8)] !capitalize !justify-start">
                 Calculator
@@ -68,7 +68,7 @@ function IndividualCatg() {
               <img src={Fashion} className="w-7 h-7 sm:w-8 sm:h-8" />
                <p className='text-sm sm:text-sm md:text-base lg:text-md' >Fashion</p>
           </Link>
-          <div className="subdropdown w-[150px] !text-xl !font-bold absolute left-[-15px] top-[100%] hidden active:block sm:active:hidden sm:group-hover:block bg-white rounded shadow-md pt-3 pb-3">
+          <div className="subdropdown w-[120px] lg:w-[150px] !text-xl !font-bold absolute left-[-15px] top-[100%] hidden active:block sm:active:hidden sm:group-hover:block bg-white rounded shadow-md pt-3 pb-3">
             <Link to="/Fashion">
               <Button className="transition ease-in-out sm:hover:bg-[#f0faff] duration-200 !no-underline !rounded-sm w-full !text-[rgba(0,0,0,0.8)] !capitalize !justify-start">
                 Mens
