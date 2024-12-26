@@ -1,7 +1,6 @@
 import React, { useEffect ,useState } from "react";
 import "./sliderr.css";
 import slider from "../../assets/slider.png";
-//Swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Scrollbar } from 'swiper/modules';
 import 'swiper/css';
@@ -15,20 +14,12 @@ function Sliderr() {
       const handleResize = ()=>{
         setIsNavigationEnabled(window.innerWidth >= 640);
       }
-      // Initial check
     handleResize();
-
-    // Add resize event listener
     window.addEventListener("resize", handleResize);
-
-    // Cleanup on component unmount
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-      
     },[])
-
-
   return (
     <div className="Slide-Wrapper w-[90vw] sm:w-[85vw]  h-[25vh] sm:h-[300px] md:h-[450px] m-auto mt-[20px] rounded-md">
     <Swiper

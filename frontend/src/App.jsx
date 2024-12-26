@@ -5,20 +5,15 @@ import Header from './components/Header/Header';
 import { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import BottomNavv from './components/bottomNav/BottomNavv';
-
-
+import Catg from './components/CategrySection/Catg';
 const MyContext = createContext();
-
-
 function App() {
   const [countrylist,setCountryList] = useState([]) ;
   const [selectedCountry, setSelectedCountry] = useState('');
-  
   const getCountry = async(url)=>{
     const responsive = await axios.get(url).then((res)=>{
       setCountryList(res.data.data);
       console.log(res.data.data);
-      
     })
   }
   useEffect(()=>{
@@ -32,9 +27,10 @@ function App() {
   }
 
   return (
-  <BrowserRouter> 
+  <BrowserRouter basename="/"> 
   <MyContext.Provider value={values}>
     <Header/>
+     <Catg/>
     <Routes>
       <Route path='/' exact={true} element={<Home/>}/>
     </Routes>

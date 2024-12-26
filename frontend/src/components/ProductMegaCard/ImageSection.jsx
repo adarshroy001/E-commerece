@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/thumbs';
 import { FreeMode, Thumbs } from 'swiper/modules';
-//
 import food_5 from '../../assets/food_5.png';
 import food_7 from '../../assets/food_7.png';
 import food_9 from '../../assets/food_9.png';
@@ -65,5 +63,4 @@ function ImageSection() {
       </>   
   )
 }
-
 export default ImageSection

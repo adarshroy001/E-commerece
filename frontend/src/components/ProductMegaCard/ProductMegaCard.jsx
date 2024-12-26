@@ -10,7 +10,6 @@ import { Button } from '@mui/material';
 
 function ProductMegaCard() {
     const [ProductData, SetProductData] = useState('Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis sit dolorum est nihil molestias quis pariatur. Soluta facilis quae alias. Optio eaque labore provident harum nulla fugit voluptas? Ad obcaecati tempora distinctio iure totam doloribus rem odit commodi voluptas dolor facere quaerat, minima ducimus, ea mollitia magni omnis. Excepturi accusantium iure, amet dolor eveniet commodi in.')
-    const [readMoreOpen , SetReadMoreOpen] = useState(false) ;
     const handleProductdata =()=>{
         SetProductData(ProductData.substring(0,120) + ' read more ... ' + <Button> Hello ji </Button>)
     }

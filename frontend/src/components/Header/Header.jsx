@@ -1,12 +1,8 @@
 import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
-import logo from '../../Assets/logo.png'
 import LocationButton from './LocationButtuon'
 import { CiUser } from "react-icons/ci";
 import { BsBag } from "react-icons/bs";
 import SearchBox from './SearchBox';
-import IndividualCatg from './IndividualCatg';
-import AllCatg from './Allcatg';
 import { MyContext } from '../../App';
 import { IoMenuSharp } from "react-icons/io5";
 import logo2 from '../../Assets/logo2.png'
@@ -15,13 +11,13 @@ function Header() {
   const context = useContext(MyContext);
 
   return (
-    <div className="topHeader w-full border-solid border-[rgba(0,0,0,.1)] bg-white sticky z-50 top-0 ">
+    <div className="topHeader w-full border-solid border-[rgba(0,0,0,.1)] bg-white   ">
       <div className="top-strip bg-myyellow ">
         <p className='mb-0 mt-0 text-center text-sm font-medium sm:text-base md:text-lg sm:font-semibold pt-2 pb-2  text-white'>
           Use Code : <span className='text-center text-sm font-semibold sm:text-base md:text-lg sm:font-semibold'>"NITJSR"</span> for additionally 10% off
         </p> 
       </div>
-      <nav className="header w-full block lg:hidden  p-3 border-b bg-white  border-[rgba(0,0,0,.1)] ">
+      <nav className="header w-full block lg:hidden  p-3  bg-white  ">
         <div className='flex justify-around items-center '>
          <div><IoMenuSharp className='text-4xl text-[#1d1d4b]'/></div>
          <div className='w-full flex justify-center'><img src={logo2} className='w-28' /></div>
@@ -43,28 +39,8 @@ function Header() {
             </div>
         </div> 
       </nav>
-      <div className="container flex  items-center mt-4  pb-2 pt-2  border-b-[1px]  w-[100%]  min-w-[100%]">
-        <AllCatg />
-        <IndividualCatg />
-      </div>
     </div>
   )
 }
 
 export default Header
-
-
-{/* <div className="firstHalf w-[20%] h-[50px] flex justify-end">
-          <div className='w-1/2 h-full'><Link to={'/'}> <img src={logo} className='h-full p-1' /> </Link> </div>
-        </div> */}
-        {/* <div className="midHalf flex w-[60%] items-center">
-          {
-            context.countrylist.length !== 0 && <LocationButton />
-          }
-          <SearchBox Width="w-[60%]" />
-        </div> */}
-        {/* <div className="lastHalf w-[20%] flex items-center justify-start  gap-7">
-          <div className="cartTab flex justify-center items-center gap-1">
-            
-          </div>
-        </div> */}
