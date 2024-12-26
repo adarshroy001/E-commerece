@@ -2,7 +2,7 @@ import React, { useEffect ,useState } from "react";
 import "./sliderr.css";
 import slider from "../../assets/slider.png";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Navigation, Scrollbar } from 'swiper/modules';
+import { Autoplay, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/scrollbar';

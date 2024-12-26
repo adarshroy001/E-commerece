@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@mui/material';
 import { IoMdMenu } from "react-icons/io";
 import { GoTriangleDown } from "react-icons/go";

@@ -1,4 +1,3 @@
-import React from "react";
 import ProductMiniCardSliderVersion from "../../components/ProductMiniCard/ProductMiniCardSliderVersion";
 
 function NewProducts() {

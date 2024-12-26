@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import food from '../../Assets/iconsforheader/cutlery.png';
 import cake from '../../Assets/iconsforheader/birthday-cake.png';

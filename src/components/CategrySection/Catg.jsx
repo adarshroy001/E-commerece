@@ -1,4 +1,3 @@
-import React from 'react'
 import IndividualCatg from '../Header/IndividualCatg';
 import AllCatg from '../Header/Allcatg';
 

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import LocationButton from './LocationButtuon'
 import { CiUser } from "react-icons/ci";
 import { BsBag } from "react-icons/bs";
@@ -14,7 +14,7 @@ function Header() {
     <div className="topHeader w-full border-solid border-[rgba(0,0,0,.1)] bg-white   ">
       <div className="top-strip bg-myyellow ">
         <p className='mb-0 mt-0 text-center text-sm font-medium sm:text-base md:text-lg sm:font-semibold pt-2 pb-2  text-white'>
-          Use Code : <span className='text-center text-sm font-semibold sm:text-base md:text-lg sm:font-semibold'>"NITJSR"</span> for additionally 10% off
+          Use Code : <span className='text-center text-sm font-semibold sm:text-base md:text-lg sm:font-semibold'>&quot;NITJSR&quot;</span> for additionally 10% off
         </p> 
       </div>
       <nav className="header w-full block lg:hidden  p-3  bg-white  ">

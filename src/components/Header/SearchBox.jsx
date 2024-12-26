@@ -1,7 +1,5 @@
-import React from 'react'
 import { CiSearch } from "react-icons/ci";
-
-
+import PropTypes from 'prop-types';
 
 
 function SearchBox({Width , marginLeft = 'ml-3',searchWhat = 'products',marginBottom}) {
@@ -17,5 +15,12 @@ function SearchBox({Width , marginLeft = 'ml-3',searchWhat = 'products',marginBo
 
   )
 }
+
+SearchBox.propTypes = {
+  Width: PropTypes.string,            
+  marginLeft: PropTypes.string,        
+  searchWhat: PropTypes.string,         
+  marginBottom: PropTypes.string,       
+};
 
 export default SearchBox
