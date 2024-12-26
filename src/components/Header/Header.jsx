@@ -5,7 +5,7 @@ import { BsBag } from "react-icons/bs";
 import SearchBox from './SearchBox';
 import { MyContext } from '../../App';
 import { IoMenuSharp } from "react-icons/io5";
-import logo2 from '../../Assets/logo2.png'
+import logo2 from '../../assets/logo2.png'
 
 function Header() {
   const context = useContext(MyContext);
