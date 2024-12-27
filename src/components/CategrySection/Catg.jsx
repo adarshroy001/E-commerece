@@ -11,5 +11,4 @@ function Catg() {
  </div>  
   )
 }
-
 export default Catg
