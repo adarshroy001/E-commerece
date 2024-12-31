@@ -19,6 +19,11 @@ function ImageCard() {
 
     return (
         <div className="w-full lg:min-h-[92%] border border-gray-200 sm:border-gray-50 shadow-md sm:shadow-2xl rounded-lg overflow-hidden m-auto mt-5 pt-4 sm:pt-4 pb-4 sm:pb-8 z-10 relative">
+            <div className='m-1 mb-3'>
+                <p className='text-center text-2xl font-semibold text-gray-800 sm:hidden lg:block '>
+                Sayonara Motel
+                </p>
+            </div>
             <div className="mx-auto mt-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1">
                 <div className="image w-full mt-0 h-full">
                     <ResPhoto />
@@ -26,7 +31,7 @@ function ImageCard() {
                 <div className="text-part w-full">
                     <div className="mt-3 ml-8 mb-3 w-4/5">
                             <p className="text-lg sm:text-2xl font-semibold text-gray-800 flex justify-between ">
-                                <p>Sayonara Motel <p><Rating name="half-rating-read flex justify-center items-center" defaultValue={4.5} precision={0.1} readOnly /></p></p> 
+                                <p className='hidden sm:block lg:hidden'>Sayonara Motel <p><Rating name="half-rating-read flex justify-center items-center" defaultValue={4.5} precision={0.1} readOnly /></p></p> 
                                 <p className="text-sm px-3 !h-10  mb-0 min:w-fit flex justify-center items-center bg-[#e5f8ed] rounded-full text-green-600 font-bold ">
                                  Status:  Open</p>
                             </p>
