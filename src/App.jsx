@@ -6,6 +6,7 @@ import { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import BottomNavv from './components/bottomNav/BottomNavv';
 import Catg from './components/CategrySection/Catg';
+import Footer from './components/Footer/Footer';
 
 const MyContext = createContext();
 
@@ -40,6 +41,7 @@ function App() {
         <Routes>
           <Route path="/" exact={true} element={<Home />} />
         </Routes>
+        <Footer/>
         <BottomNavv />
       </MyContext.Provider>
     </BrowserRouter>

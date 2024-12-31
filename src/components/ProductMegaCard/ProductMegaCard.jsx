@@ -18,7 +18,7 @@ function ProductMegaCard() {
     } , [ProductData])
 
     return (
-        <div className="Wrapper min:w-[300px] w-[90vw] sm:w-[95%] lg:w-[65%] bg-white border border-gray-200 sm:border-gray-50 shadow-md sm:shadow-2xl rounded-lg overflow-hidden m-auto mt-6 pt-4 sm:pt-8 pb-4 sm:pb-8 mb-6 z-10 relative">
+        <div className="Wrapper w-full border border-gray-200 sm:border-gray-50 shadow-md sm:shadow-2xl rounded-lg overflow-hidden m-auto mt-5 pt-4 sm:pt-8 pb-4 sm:pb-8 z-10 relative">
             <div className="Title w-[84%] border-b sm:w-[90%] mx-auto relative">
                 <p className=" text-lg sm:text-2xl font-semibold text-gray-800 mx-3">
                     All Natural Italian-Style Chicken Meatballic
@@ -32,7 +32,7 @@ function ProductMegaCard() {
                 <Rating name="half-rating-read" defaultValue={4.5} precision={0.1} readOnly />
                 
             </div>
-            <div className="Bottom-half mx-auto mt-4 grid grid-cols-1 sm:grid-cols-2">
+            <div className="Bottom-half mx-auto mt-4 grid grid-cols-1 lg:grid-cols-2  xl:grid-cols-2 sm:grid-cols-2 ">
                 <div className="image w-full  mt-0 sm:mt-4">
                   <ImageSection /> 
                 </div>
@@ -49,7 +49,7 @@ function ProductMegaCard() {
                               ProductData    
                         }
                     </p>
-                    <div className="Buttons flex ml-12 mt-2 sm:mt-4 justify-start gap-1 sm:gap-3 ">
+                    <div className="Buttons flex flex-wrap mr-4 ml-12 mt-2 sm:mt-4 justify-start gap-1 sm:gap-3 ">
                         <button className="mt-4 h-11 w-11 bg-[#edeef5]  text-sm font-semibold  rounded-full active:scale-90 transition">
                             <RemoveIcon />
                         </button>

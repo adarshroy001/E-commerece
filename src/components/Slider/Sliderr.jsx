@@ -21,7 +21,7 @@ function Sliderr() {
     };
     },[])
   return (
-    <div className="Slide-Wrapper w-[90vw] sm:w-[85vw]  h-[25vh] sm:h-[300px] md:h-[450px] m-auto mt-[20px] rounded-md">
+    <div className="Slide-Wrapper w-[90vw] xl:w-[85vw]  h-[25vh] sm:h-[300px] md:h-[450px] m-auto mt-[20px] rounded-md">
     <Swiper
         loop={true}
         autoplay={{
