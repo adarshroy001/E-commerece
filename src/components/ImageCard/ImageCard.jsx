@@ -22,6 +22,9 @@ function ImageCard() {
             <div className='m-1 mb-3'>
                 <p className='text-center text-2xl font-semibold text-gray-800 sm:hidden lg:block '>
                 Sayonara Motel
+                <p>
+                <Rating name="half-rating-read flex justify-center items-center" defaultValue={4.5} precision={0.1} readOnly /> 
+                </p>
                 </p>
             </div>
             <div className="mx-auto mt-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1">
