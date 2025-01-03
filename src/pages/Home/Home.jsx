@@ -9,10 +9,10 @@ import Testimonials from '../../components/Testimonial/Testimonial';
 
 function Home() {
   return (
-    <div className='bg-white '>
+    <div className=''>
       <Sliderr />
       <ProductSlider />
-      <div className='w-[90vw] xl:w-[85vw] lg:h-fit  mx-auto mt-4 grid grid-col-1 lg:grid-cols-10 xl:grid-cols-8 gap-4 p-1'>
+      <div className='w-[90vw] xl:w-[85vw] lg:h-fit mx-auto mt-4 grid grid-col-1 lg:grid-cols-10 xl:grid-cols-8 gap-4 p-1'>
         <div className='lg:col-span-3 xl:col-span-2'>
           <p className=" capitalize text-xl font-bold sm:uppercase  sm:text-2xl sm:font-semibold  text-gray-800 sm:ml-2">Featured Restaurant</p>
           <ImageCard />

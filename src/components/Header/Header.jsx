@@ -6,6 +6,7 @@ import SearchBox from './SearchBox';
 import { MyContext } from '../../App';
 import { IoMenuSharp } from "react-icons/io5";
 import logo2 from '../../assets/logo2.png'
+import { Link } from 'react-router-dom';
 
 function Header() {
   const context = useContext(MyContext);
@@ -20,13 +21,13 @@ function Header() {
       <nav className="header w-full block lg:hidden  p-3  bg-white  ">
         <div className='flex justify-around items-center '>
          <div><IoMenuSharp className='text-4xl text-[#1d1d4b]'/></div>
-         <div className='w-full flex justify-center'><img src={logo2} className='w-28' /></div>
+         <Link to={'/'} className='w-full flex justify-center'><img src={logo2} className='w-28' /></Link>
          <div><button className='h-10 w-10 sm:h-[45px] sm:w-[45px]  sm:border rounded-full flex justify-center items-center bg-[#fff1ee] sm:active:bg-[#ffccc1] active:scale-[.95]  border-[rgba(0,0,0,0.2)]'>  <BsBag className='text-2xl sm:text-2xl text-[#ea2b0f]' /></button></div>
         </div>
       </nav>
       <nav className='navLarge p-3 hidden lg:block '>
         <div className='flex gap-6 xl:gap-16 items-center justify-center'>
-         <div className='w-fit flex justify-center'><img src={logo2} className='w-28 lg:w-32 xl:w-32' /></div>
+         <Link to={'/'} className='w-fit flex justify-center'><img src={logo2} className='w-28 lg:w-32 xl:w-32' /></Link>
          <div className='w-fit'>{ context.countrylist.length !== 0 && <LocationButton />}  </div>
          <div className='w-2/5'> <SearchBox Width='w-[100%]'/></div>
           <div className='w-fit '>

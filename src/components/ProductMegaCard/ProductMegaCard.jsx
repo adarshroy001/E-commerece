@@ -49,7 +49,12 @@ function ProductMegaCard() {
                               ProductData    
                         }
                     </p>
-                    <div className="Buttons flex flex-wrap mr-4 ml-12 mt-2 sm:mt-4 justify-start gap-1 sm:gap-3 ">
+                    <div className="wishlistButton ml-12 mt-5 sm:mt-7  ">
+                        <button className=" h-9  px-3 sm:hover:bg-[#edeef5] border  border-[#e2e3eb]  rounded-3xl active:scale-95 transition">
+                            <span><FavoriteBorderIcon className='!text-base !font-normal' /></span> <span className='text-sm font-normal'>ADD TO FAVOURITE </span>
+                        </button>
+                    </div>
+                    <div className="Buttons flex flex-wrap mr-10 ml-12 mt-2 justify-start gap-1 sm:gap-5 ">
                         <button className="mt-4 h-11 w-11 bg-[#edeef5]  text-sm font-semibold  rounded-full active:scale-90 transition">
                             <RemoveIcon />
                         </button>
@@ -57,15 +62,12 @@ function ProductMegaCard() {
                         <button className="mt-4 h-11 w-11 bg-[#edeef5]  text-sm font-semibold  rounded-full active:scale-90 transition">
                             <AddIcon />
                         </button>
-                        <button className="mt-4 px-10 sm:px-4 md:px-10 bg-myblue text-white text-sm font-semibold py-2 rounded-3xl border border-myblue active:scale-95 transition sm:hover:bg-[#1d2d63]">
+                        
+                    </div>
+                    <button className="ml-12 mt-5 sm:mt-7px-10  lg:px-14 xl:px-14  bg-myblue text-white text-sm font-semibold py-2 rounded-3xl border border-myblue active:scale-95 transition sm:hover:bg-[#1d2d63]">
                             Add to cart
-                        </button>
-                    </div>
-                    <div className="wishlistButton ml-12 mt-5 sm:mt-7">
-                        <button className=" h-9  px-3 sm:hover:bg-[#edeef5] border  border-[#e2e3eb]  rounded-3xl active:scale-95 transition">
-                            <span><FavoriteBorderIcon className='!text-base !font-normal' /></span> <span className='text-sm font-normal'>ADD TO FAVOURITE </span>
-                        </button>
-                    </div>
+                    </button>
+
                     <div className="Location mt-4 sm:mt-7 ml-12">
                         <div>
                             <span className="text-sm font-semibold text-gray-800">

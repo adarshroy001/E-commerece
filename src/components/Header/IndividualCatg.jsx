@@ -35,7 +35,7 @@ function IndividualCatg() {
             className="!no-underline !rounded-full p-3 flex flex-col sm:flex-row gap-0.5 sm:gap-2 items-center justify-center"
           >
               <img src={Essential} className="w-7 h-7 sm:w-8 sm:h-8" />
-                <p className='flex'><p className='text-sm sm:text-sm md:text-base lg:text-md' >College</p> <p className='text-sm sm:text-sm md:text-base lg:text-md' >Essential</p></p> 
+                <p className='flex'><p className='text-sm sm:text-sm md:text-base lg:text-md' >College &nbsp;</p> <p className='text-sm sm:text-sm md:text-base lg:text-md' >Essential</p></p> 
           </Link>
           <div className="subdropdown w-[120px] lg:w-[150px] text-base font-medium absolute left-9 top-[100%] hidden active:block sm:active:hidden sm:group-hover:block bg-white rounded shadow-md pt-3 pb-3 ">
             <Link to="/Essential">

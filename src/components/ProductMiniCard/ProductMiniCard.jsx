@@ -7,7 +7,7 @@ import food_5 from '../../assets/food_5.png';
 function ProductMiniCard() {
 
   return (
-    <div className="w-[44%] sm:w-[46%] md:w-[300px] bg-white shadow-lg rounded-lg overflow-hidden m-1 sm:m-2 group hover:scale-[.99] hover:border-[#c9dcde] hover:border transition">
+    <div className="w-[44%] sm:w-[46%] md:w-[300px] bg-white shadow-lg rounded-lg overflow-hidden m-1 sm:m-2 group hover:scale-[.99] hover:border-[#c9dcde] hover:border transition-all">
       <div className="relative">
         <div className="absolute top-2 left-2 bg-mypink text-white text-xs font-bold py-1 px-2.5 rounded">
           24%

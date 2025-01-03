@@ -32,14 +32,14 @@ function ImageCard() {
                     <ResPhoto />
                 </div>
                 <div className="text-part w-full">
-                    <div className="mt-3 ml-8 mb-3 w-4/5">
+                    <div className="mt-0 ml-3 sm:ml-4 lg:ml-3 mb-3 w-4/5">
                             <p className="text-lg sm:text-2xl font-semibold text-gray-800 flex justify-between ">
                                 <p className='hidden sm:block lg:hidden'>Sayonara Motel <p><Rating name="half-rating-read flex justify-center items-center" defaultValue={4.5} precision={0.1} readOnly /></p></p> 
                                 <p className="text-sm px-3 !h-10  mb-0 min:w-fit flex justify-center items-center bg-[#e5f8ed] rounded-full text-green-600 font-bold ">
                                  Status:  Open</p>
                             </p>
                     </div>
-                    <div className="Location mt-4 sm:mt-1 ml-8">
+                    <div className="Location mt-4 sm:mt-1 ml-4">
                         <div className=''>
                             <span className="text-sm font-semibold text-gray-800">
                                 Address:&nbsp;

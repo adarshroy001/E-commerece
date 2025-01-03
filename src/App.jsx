@@ -7,6 +7,12 @@ import axios from 'axios';
 import BottomNavv from './components/bottomNav/BottomNavv';
 import Catg from './components/CategrySection/Catg';
 import Footer from './components/Footer/Footer';
+import Food from './pages/Food/Food';
+import Cakes from './pages/Cakes/Cakes';
+import Essential from './pages/College-Essential/essential';
+import Fashion from './pages/Fashion/Fashion';
+import Bags from './pages/Bags/Bags';
+import Footware from './pages/Footware/Footware';
 
 const MyContext = createContext();
 
@@ -40,6 +46,12 @@ function App() {
         <Catg />
         <Routes>
           <Route path="/" exact={true} element={<Home />} />
+          <Route path="/Food" exact={true} element={<Food />} />
+          <Route path="/Cakes" exact={true} element={<Cakes />} />
+          <Route path="/Essential" exact={true} element={<Essential />} />
+          <Route path="/Fashion" exact={true} element={<Fashion />} />
+          <Route path="/Bags" exact={true} element={<Bags />} />
+          <Route path="/Footware" exact={true} element={<Footware />} />
         </Routes>
         <Footer/>
         <BottomNavv />
