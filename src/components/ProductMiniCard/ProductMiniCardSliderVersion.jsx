@@ -3,6 +3,7 @@ import { BsArrowsFullscreen } from "react-icons/bs";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Rating from '@mui/material/Rating';
 import food_5 from '../../assets/food_5.png';
+import { Link } from 'react-router-dom';
 
 function ProductMiniCardSliderVersion({ className = '' }) {
   const [ProductData, SetProductData] = useState('Angie’s Boomchick Sweet & Salty Kettle Corn')
@@ -14,7 +15,7 @@ function ProductMiniCardSliderVersion({ className = '' }) {
   } , [ProductData])
 
   return (
-    <div className={`w-full bg-white shadow-lg rounded-lg overflow-hidden group sm:hover:scale-[.99] sm:hover:border-[#c9dcde] sm:hover:border transition ${className}`}>
+    <Link to={'/Foodtype'} className={`w-full bg-white shadow-lg rounded-lg overflow-hidden group sm:hover:scale-[.99] sm:hover:border-[#c9dcde] sm:hover:border transition ${className}`}>
       <div className="relative">
         <div className="absolute top-2 left-2 bg-mypink text-white text-xs font-bold py-1 px-2.5 rounded">
           24%
@@ -55,7 +56,7 @@ function ProductMiniCardSliderVersion({ className = '' }) {
           Add to cart
         </button>
       </div>
-    </div>
+    </Link>
   );
 }
 

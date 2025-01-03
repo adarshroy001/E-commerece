@@ -13,6 +13,7 @@ import Essential from './pages/College-Essential/essential';
 import Fashion from './pages/Fashion/Fashion';
 import Bags from './pages/Bags/Bags';
 import Footware from './pages/Footware/Footware';
+import Foodtype from './pages/Product/Foodtype';
 
 const MyContext = createContext();
 
@@ -52,6 +53,7 @@ function App() {
           <Route path="/Fashion" exact={true} element={<Fashion />} />
           <Route path="/Bags" exact={true} element={<Bags />} />
           <Route path="/Footware" exact={true} element={<Footware />} />
+          <Route path="/Foodtype" exact={true} element={< Foodtype />} />
         </Routes>
         <Footer/>
         <BottomNavv />
