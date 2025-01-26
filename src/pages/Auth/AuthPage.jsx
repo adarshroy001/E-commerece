@@ -9,7 +9,7 @@ function AuthPage() {
       setIsSignUp(!isSignUp);
     };
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[#dfebf6] ">
+    <div className="flex items-center justify-center min-h-[80vh] bg-[#dfebf6] ">
     <div className="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full">
       <h1 className="text-2xl font-bold text-center mb-6">
         {isSignUp ? "Sign Up" : "Sign In"}

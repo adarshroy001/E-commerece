@@ -14,6 +14,9 @@ import Fashion from './pages/Fashion/Fashion';
 import Bags from './pages/Bags/Bags';
 import Footware from './pages/Footware/Footware';
 import Foodtype from './pages/Product/Foodtype';
+import AuthPage from './pages/Auth/AuthPage';
+import Cart from './pages/Cart/Cart';
+import Error from './pages/Error/Error';
 
 const MyContext = createContext();
 
@@ -54,6 +57,9 @@ function App() {
           <Route path="/Bags" exact={true} element={<Bags />} />
           <Route path="/Footware" exact={true} element={<Footware />} />
           <Route path="/Foodtype" exact={true} element={< Foodtype />} />
+          <Route path="/Cart" exact={true} element={<Cart/>} />
+          <Route path="/AuthPage" exact={true} element={<AuthPage/>}/>
+          <Route path="*" exact={true} element={<Error/>}/>
         </Routes>
         <Footer/>
         <BottomNavv />

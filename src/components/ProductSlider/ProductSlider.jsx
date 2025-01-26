@@ -58,7 +58,9 @@ function ProductSlider() {
           .fill(null)
           .map((_, index) => (
             <SwiperSlide key={index} className="flex justify-center items-center mt-6 mb-6 ">
-              <ProductMiniCardSliderVersion  className='!w-full'/>
+              <div className='sm:hover:scale-[.99] border border-[#c9dcde] rounded-lg transition'>
+              <ProductMiniCardSliderVersion />
+              </div>
             </SwiperSlide>
           ))}
       </Swiper>

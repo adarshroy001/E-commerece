@@ -27,9 +27,6 @@ function Home() {
       </div>
       <NewProducts />
       <Testimonials />
-      <Cart/>
-      <AuthPage/>
-
     </div>
 
   );

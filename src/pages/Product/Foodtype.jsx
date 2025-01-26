@@ -24,7 +24,7 @@ function Foodtype() {
 
   return (
     <div className="w-full overflow-hidden m-auto mt-5  mb-10 pt-4 sm:pt-8 pb-4 sm:pb-8 z-10 relative">
-      <div className="Title w-[85%] border-b sm:w-[90%] mx-auto relative">
+      <div className="Title w-[85%] border-b sm:w-[90%] lg:w-[80vw] mx-auto relative">
         <p className="text-lg sm:text-2xl font-semibold text-gray-800 mx-3">
           {productTitle}
         </p>
@@ -36,7 +36,7 @@ function Foodtype() {
         </span>
         <Rating name="half-rating-read" defaultValue={4.5} precision={0.1} readOnly />
       </div>
-      <div className="Bottom-half w-[90%]  mx-auto mt-4 grid grid-cols-1 lg:grid-cols-2 sm:grid-cols-2">
+      <div className="Bottom-half w-[90%] lg:w-[80vw] mx-auto mt-4 grid grid-cols-1 lg:grid-cols-2 sm:grid-cols-2">
         <div className="image w-full mt-0 sm:mt-4">
           <FoodtypeImg />
         </div>
