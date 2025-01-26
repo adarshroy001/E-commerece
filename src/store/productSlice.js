@@ -6,7 +6,7 @@ const initialState = {
     error: null, // Store error message if any
 };
 
-const productSlice = createSlice({
+const ProductSlice = createSlice({
     name: "product",
     initialState,
     reducers: {
@@ -29,5 +29,5 @@ const productSlice = createSlice({
     },
 });
 
-export const { setProducts, setLoading, setError, filterProducts } = productSlice.actions;
-export default productSlice.reducer;
+export const { setProducts, setLoading, setError, filterProducts } = ProductSlice.actions;
+export default ProductSlice.reducer;
