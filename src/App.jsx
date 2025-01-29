@@ -20,6 +20,7 @@ import SignInForm from './pages/Auth/Login';
 import SignUpForm from './pages/Auth/Signup';
 import { useDispatch } from 'react-redux';
 import { login } from './store/UserSlice';
+import ProfilePage from './pages/ProfilePage/ProfilePage';
 
 const MyContext = createContext();
 
@@ -80,6 +81,7 @@ useEffect(() => {
           <Route path="/Cart" exact={true} element={<Cart/>} />
           <Route path="/signup" exact={true} element={<SignUpForm/>}/>
           <Route path="/login" exact={true} element={<SignInForm/>}/>
+          <Route path="/Profile" exact={true} element={<ProfilePage/>}/>
           <Route path="*" exact={true} element={<Error/>}/>
         </Routes>
         <Footer/>
