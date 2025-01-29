@@ -5,9 +5,7 @@ import ProductSlider from '../../components/ProductSlider/ProductSlider'
 import NewProducts from '../../components/NewProducts/NewProducts';
 import ImageCard from '../../components/ImageCard/ImageCard';
 import Testimonials from '../../components/Testimonial/Testimonial';
-import Cart from '../Cart/Cart'
-import Signup from '../Auth/Signup';
-import AuthPage from '../Auth/AuthPage';
+
 
 
 function Home() {

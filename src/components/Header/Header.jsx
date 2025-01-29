@@ -52,7 +52,7 @@ function Header() {
               isLoggedIn? (
                 <button className='h-[45px] w-[45px] min-h-[45px] min-w-[45px]  border rounded-full flex justify-center items-center active:bg-gray-300 active:scale-95  border-[rgba(0,0,0,0.2)]'>  <CiUser className='text-3xl ' /></button>
               ):(
-                <NavLink to={'/AuthPage'} className={({isActive}) => isActive? 'text-[#ffffff] bg-[#ea2b0f] text-lg font-bold px-4 py-2 rounded-full ' : 'text-[#ea2b0f] text-lg font-bold px-4 py-2 rounded-full bg-[#fff1ee] '}>
+                <NavLink to={'/login'} className={({isActive}) => isActive? 'text-[#ffffff] bg-[#ea2b0f] text-lg font-bold px-4 py-2 rounded-full ' : 'text-[#ea2b0f] text-lg font-bold px-4 py-2 rounded-full bg-[#fff1ee] '}>
                   LogIn
                 </NavLink>
               )
