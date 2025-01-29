@@ -8,17 +8,12 @@ import { IoMenuSharp } from "react-icons/io5";
 import logo2 from '../../assets/logo2.png'
 import { Link, NavLink } from 'react-router-dom';
 import { IoIosHeartEmpty } from 'react-icons/io';
-
-
-//handing Auth
-import { useSelector } from 'react-redux';
+import { useAuth } from '../../middleWare/isAuth';
 
 function Header() {
   const context = useContext(MyContext);
-  ////handing Auth
-  const isLoggedIn = useSelector((state) => { return state.user.isLoggedIn })
-  console.log(isLoggedIn);
-
+    //Checking is loggedin
+    const isLoggedIn = useAuth(); // Now it's a boolean
 
   return (
     <div className="topHeader w-full border-solid border-[rgba(0,0,0,.1)] bg-white   ">

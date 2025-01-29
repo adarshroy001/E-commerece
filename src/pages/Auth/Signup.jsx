@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import InputField from "./InputField";
 import { login } from "../../store/UserSlice"; // Redux action
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { useAuth } from "../../middleWare/isAuth";
 
-const SignUpForm = ({ toggleForm }) => {
+const SignUpForm = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -14,29 +14,20 @@ const SignUpForm = ({ toggleForm }) => {
   const [success, setSuccess] = useState("");
   const dispatch = useDispatch();
 
-  // const validatePassword = (password) => {
-  //   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-  //   return passwordRegex.test(password);
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(""); // Reset error
     setSuccess(""); // Reset success message
 
-    // if (!validatePassword(password)) {
-    //   setError("Password must be at least 8 characters long and include at least one letter and one number. hello hello");
-    //   return;
-    // }
-
     try {
       // Sending the signup request
-      const response = await axios.post("http://localhost:4000/api/auth/new", {
-        name,
-        phone,
-        email,
-        password,
-      });
+      const response = await axios.post("http://localhost:4000/api/auth/new", JSON.stringify({ name, phone, email, password }),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        });
 
       setSuccess(response.data.message); // Set success message
 
@@ -53,8 +44,14 @@ const SignUpForm = ({ toggleForm }) => {
       setError(err.response?.data?.message || "Signup failed. Try again!"); // Error handling
     }
   };
+  //Checking is loggedin
+  const isLoggedIn = useAuth(); // Now it's a boolean
+  if (isLoggedIn) {
+    return <Navigate to="/" />;
+  }
 
   return (
+  
     <div className="flex items-center justify-center min-h-[80vh] bg-[#dfebf6] ">
       <div className="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full">
         <h1 className="text-2xl font-bold text-center mb-6">
@@ -65,39 +62,50 @@ const SignUpForm = ({ toggleForm }) => {
           {success && <p className="text-green-500 mb-2">{success}</p>}
 
           {/* Input Fields */}
-          <InputField
-            label="Name"
-            type="text"
-            placeholder="Enter your name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-          <InputField
-            label="Phone No."
-            type="tel"
-            placeholder="Enter your phone number"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            required
-          />
-          <InputField
-            label="Email"
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <InputField
-            label="Password"
-            type="password"
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-1">Name</label>
+            <input
+              type="text"
+              placeholder="Enter your name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-1">Phone No.</label>
+            <input
+              type="tel"
+              placeholder="Enter your phone number"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-1">Email</label>
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-1">Password</label>
+            <input
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+            />
+          </div>
           <div className="flex justify-between items-center mt-4">
             <button
               type="submit"
@@ -110,7 +118,7 @@ const SignUpForm = ({ toggleForm }) => {
           <p className="text-sm text-center mt-4">
             Already registered?{" "}
             <Link
-            to={'/login'}
+              to={'/login'}
               type="button"
               onClick={toggleForm}
               className="text-myblue hover:underline"
