@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../../store/UserSlice";
-import { Link, Navigate } from "react-router-dom";
-import {useAuth} from "../../middleWare/isAuth";
-
+import { Link, useNavigate } from "react-router-dom"; 
+import { useAuth } from "../../middleWare/isAuth";
 
 const SignInForm = ({ toggleForm }) => {
   const [email, setEmail] = useState("");
@@ -11,11 +10,12 @@ const SignInForm = ({ toggleForm }) => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate(); 
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError(""); // Reset error
-    setSuccess(""); // Reset success message
+    setError("");
+    setSuccess("");
 
     try {
       const response = await fetch("http://localhost:4000/api/auth/login", {
@@ -26,28 +26,37 @@ const SignInForm = ({ toggleForm }) => {
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json(); // Correct way to parse JSON
+      const data = await response.json(); 
 
       if (!response.ok) {
         throw new Error(data.message || "Login failed. Try again!");
       }
 
-      setSuccess(data.message || "Login successful!"); // Set success message
+      setSuccess(data.message || "Login successful!");
+
       dispatch(
         login({
-          userInfo: { email, ...data.user }, // Store user details
+          userInfo: data.user, 
           authToken: data.token,
         })
       );
+
+      //  Save authentication details in localStorage
+      localStorage.setItem("authToken", data.token);
+      localStorage.setItem("userInfo", JSON.stringify(data.user));
+
+      //  Redirect to home page after successful login
+      navigate("/");
     } catch (error) {
       console.error("Login failed", error);
       setError(error.message);
     }
   };
 
-//navigating to home page after signup
-const isLoggedIn = useAuth(); // Now it's a boolean
- if(isLoggedIn) return <Navigate to={'/'}/>
+  //  If already logged in, redirect to home page
+  const isLoggedIn = useAuth();
+  if (isLoggedIn) return <Navigate to={"/"} />;
+
   return (
     <div className="flex items-center justify-center min-h-[80vh] bg-[#dfebf6]">
       <div className="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full">
@@ -103,3 +112,4 @@ const isLoggedIn = useAuth(); // Now it's a boolean
 };
 
 export default SignInForm;
+

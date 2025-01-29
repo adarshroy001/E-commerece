@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { login } from "../../store/UserSlice"; // Redux action
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { Link, Navigate } from "react-router-dom";
-import { useAuth } from "../../middleWare/isAuth";
+import { Link, useNavigate } from "react-router-dom"; // Corrected redirection
 
 const SignUpForm = () => {
   const [name, setName] = useState("");
@@ -13,6 +12,7 @@ const SignUpForm = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // ✅ Added correct navigation function
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,13 +21,16 @@ const SignUpForm = () => {
 
     try {
       // Sending the signup request
-      const response = await axios.post("http://localhost:4000/api/auth/new", JSON.stringify({ name, phone, email, password }),
+      const response = await axios.post(
+        "http://localhost:4000/api/auth/new",
+        { name, phone, email, password }, // ✅ Fixed: No need for JSON.stringify()
         {
           headers: {
             "Content-Type": "application/json",
           },
           withCredentials: true,
-        });
+        }
+      );
 
       setSuccess(response.data.message); // Set success message
 
@@ -39,24 +42,20 @@ const SignUpForm = () => {
         })
       );
 
-      // Optionally, you can redirect the user or clear the form here.
+      // Storing token in localStorage
+      localStorage.setItem("authToken", response.data.token);
+
+      // Redirecting user after successful signup
+      navigate("/");
     } catch (err) {
       setError(err.response?.data?.message || "Signup failed. Try again!"); // Error handling
     }
   };
-  //Checking is loggedin
-  const isLoggedIn = useAuth(); // Now it's a boolean
-  if (isLoggedIn) {
-    return <Navigate to="/" />;
-  }
 
   return (
-  
-    <div className="flex items-center justify-center min-h-[80vh] bg-[#dfebf6] ">
+    <div className="flex items-center justify-center min-h-[80vh] bg-[#dfebf6]">
       <div className="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full">
-        <h1 className="text-2xl font-bold text-center mb-6">
-          Sign Up
-        </h1>
+        <h1 className="text-2xl font-bold text-center mb-6">Sign Up</h1>
         <form onSubmit={handleSubmit}>
           {error && <p className="text-red-500 mb-2">{error}</p>}
           {success && <p className="text-green-500 mb-2">{success}</p>}
@@ -118,9 +117,7 @@ const SignUpForm = () => {
           <p className="text-sm text-center mt-4">
             Already registered?{" "}
             <Link
-              to={'/login'}
-              type="button"
-              onClick={toggleForm}
+              to={"/login"}
               className="text-myblue hover:underline"
             >
               Sign In

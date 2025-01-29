@@ -18,10 +18,29 @@ import Cart from './pages/Cart/Cart';
 import Error from './pages/Error/Error';
 import SignInForm from './pages/Auth/Login';
 import SignUpForm from './pages/Auth/Signup';
+import { useDispatch } from 'react-redux';
+import { login } from './store/UserSlice';
 
 const MyContext = createContext();
 
 function App() {
+// handlinf authentication 
+const dispatch = useDispatch();
+useEffect(() => {
+  const storedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const storedToken = localStorage.getItem("authToken");
+
+  if (storedToken && storedUserInfo) {
+      dispatch(
+          login({
+              userInfo: storedUserInfo,
+              authToken: storedToken,
+          })
+      );
+  }
+}, [dispatch]);
+
+
   const [countrylist, setCountryList] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState('');
 
