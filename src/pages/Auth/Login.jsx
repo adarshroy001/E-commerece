@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../../store/UserSlice";
-import { Link, useNavigate } from "react-router-dom"; 
-import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import axios, { all } from "axios";
 
 const SignInForm = ({ toggleForm }) => {
   const [email, setEmail] = useState("");
@@ -10,7 +10,7 @@ const SignInForm = ({ toggleForm }) => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const dispatch = useDispatch();
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -18,49 +18,34 @@ const SignInForm = ({ toggleForm }) => {
     setSuccess("");
 
     try {
-      const response = await fetch("http://localhost:4000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
+      const { data: loginData } = await axios.post("http://localhost:4000/api/auth/login", {
+        email,
+        password,
       });
-      // Parse the JSON response body
-      const responseData = await response.json();
-      console.log(responseData);
-      
-        // Destructure the token and check if it's missing
-        const { token, user } = responseData;
-      if (!token) {
-        throw new Error(responseData.message || "Login failed. Token missing . try again!");
+      if (!loginData.token || !loginData.user) {
+        throw new Error(data.message || "Login failed. Token missing.");
       }
-      const {data: userInfo } = await axios.get("http://localhost:4000/api/auth/getUserInfo", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+      //since User and token is found in login api and User here dont have all the data so we will fetch from getUserInfo 
+      const token = loginData.token;
+      const { data: userData } = await axios.get('http://localhost:4000/api/auth/getUserInfo', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      })
 
-      dispatch(
-        login({
-          userInfo, 
-          authToken: token,
-        })
-      );
+      // Save to localStorage
+      localStorage.setItem("authToken", loginData.token);
+      localStorage.setItem("userInfo", JSON.stringify(userData.user));
 
-      //  Save authentication details in localStorage
-      localStorage.setItem("authToken", token);
-      localStorage.setItem("userInfo", JSON.stringify(userInfo));
-
-      setSuccess(responseData.message || "Login successful!");
-
-      //  Redirect to home page after successful login
+      // Sync Redux with localStorage
+      dispatch(login({ userInfo: userData.user }));
+      setSuccess("Login successful!");
       navigate("/");
     } catch (error) {
       console.error("Login failed", error);
-      setError(error.message);
+      setError(error.response?.data?.message || "Login failed. Try again.");
     }
   };
-
 
   return (
     <div className="flex items-center justify-center min-h-[80vh] bg-[#dfebf6]">
@@ -117,4 +102,5 @@ const SignInForm = ({ toggleForm }) => {
 };
 
 export default SignInForm;
+
 

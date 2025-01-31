@@ -12,7 +12,7 @@ const SignUpForm = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // ✅ Added correct navigation function
+  const navigate = useNavigate(); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,7 +23,7 @@ const SignUpForm = () => {
       // Sending the signup request
       const response = await axios.post(
         "http://localhost:4000/api/auth/new",
-        { name, phone, email, password }, // ✅ Fixed: No need for JSON.stringify()
+        { name, phone, email, password }, 
         {
           headers: {
             "Content-Type": "application/json",
@@ -32,18 +32,20 @@ const SignUpForm = () => {
         }
       );
 
-      setSuccess(response.data.message); // Set success message
+      setSuccess(response.data.message); 
 
-      // Dispatch Redux action to update the user state
       dispatch(
         login({
           userInfo: { name, phone, email },
-          authToken: response.data.token, // Assuming the backend sends a token
+          authToken: response.data.token, 
         })
       );
 
       // Storing token in localStorage
       localStorage.setItem("authToken", response.data.token);
+      localStorage.setItem('userInfo' , JSON.stringify(response.data.user) );
+      console.log(response.data.user);
+      
 
       // Redirecting user after successful signup
       navigate("/");

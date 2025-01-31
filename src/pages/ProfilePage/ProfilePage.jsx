@@ -10,26 +10,26 @@ const UserProfile = () => {
   
   // Get user info from Redux store
   const { userInfo } = useSelector((state) => state.user);
-  
-  // Local state to hold user data from Redux or localStorage
-  const [userData, setUserData] = useState(userInfo);
+
+  // Local state to hold user data (fallback to localStorage if Redux state is empty)
+  const [userData, setUserData] = useState(userInfo || JSON.parse(localStorage.getItem("userInfo")) || {});
 
   useEffect(() => {
-    if (userInfo) {
-      setUserData(userInfo); // If user info is in Redux, use it
+    if (userInfo && Object.keys(userInfo).length > 0) {
+      setUserData(userInfo); // Update state if Redux has user data
     } else {
-      const storedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
+      const storedUserInfo = localStorage.getItem("userInfo");
       if (storedUserInfo) {
-        setUserData(storedUserInfo); // Fallback to localStorage if available
+        setUserData(JSON.parse(storedUserInfo)); // Fallback to localStorage
       }
     }
-  }, [userInfo]); // Update whenever userInfo in Redux changes
+  }, [userInfo]); // Runs when Redux userInfo changes
 
   const handleLogout = () => {
-    dispatch(logout()); // Clear user data from Redux
+    dispatch(logout()); // Clear Redux state
     localStorage.removeItem("authToken"); // Remove token from localStorage
-    localStorage.removeItem("userInfo"); // Remove user info from localStorage
-    navigate("/"); // Redirect to home page
+    localStorage.removeItem("userInfo"); // Remove user data from localStorage
+    navigate("/"); // Redirect to home
   };
 
   return (
@@ -41,7 +41,7 @@ const UserProfile = () => {
             <div className="w-20 h-20 rounded-full bg-white/20 flex items-center justify-center 
             backdrop-blur-sm border-2 border-white/30">
               <span className="text-3xl font-bold text-white">
-                {userData?.name?.charAt(0).toUpperCase()}
+                {userData?.name?.charAt(0)?.toUpperCase() || "U"}
               </span>
             </div>
           </div>
