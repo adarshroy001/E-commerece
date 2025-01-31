@@ -7,7 +7,7 @@ import { FiMail, FiPhone, FiHeart, FiPackage, FiLogOut } from "react-icons/fi";
 const UserProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   // Get user info from Redux store
   const { userInfo } = useSelector((state) => state.user);
 
@@ -106,7 +106,11 @@ const UserProfile = () => {
         {/* Additional Info */}
         <div className="p-4 bg-white border-t border-gray-100">
           <p className="text-center text-sm text-gray-500">
-            Member since {userData?.createdAt ? new Date(userData.createdAt).getFullYear() : "2023"}
+            Member since {userData?.createdAt ? new Date(userData.createdAt).toLocaleDateString("en-US", {
+              day: "numeric",
+              month: "long",
+              year: "numeric"
+            }) : "2023"}
           </p>
         </div>
       </div>

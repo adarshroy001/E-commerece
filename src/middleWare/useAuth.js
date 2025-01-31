@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 
-export const useAuth = () => {
+const  useAuth = () => {
     return useSelector((state) => state.user.isLoggedIn);
 };
+export default useAuth

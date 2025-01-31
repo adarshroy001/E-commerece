@@ -21,6 +21,7 @@ import SignUpForm from './pages/Auth/Signup';
 import { useDispatch } from 'react-redux';
 import { login } from './store/UserSlice';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
+import ProtectedRoute from './protected/ProtectedRoute';
 
 const MyContext = createContext();
 
@@ -78,10 +79,20 @@ useEffect(() => {
           <Route path="/Bags" exact={true} element={<Bags />} />
           <Route path="/Footware" exact={true} element={<Footware />} />
           <Route path="/Foodtype" exact={true} element={< Foodtype />} />
-          <Route path="/Cart" exact={true} element={<Cart/>} />
           <Route path="/signup" exact={true} element={<SignUpForm/>}/>
           <Route path="/login" exact={true} element={<SignInForm/>}/>
+
+        {/* Protected Routes */}
+        <Route element={<ProtectedRoute/>}>
           <Route path="/Profile" exact={true} element={<ProfilePage/>}/>
+          <Route path="/Cart" exact={true} element={<Cart/>} />
+
+        </Route>
+
+
+
+
+
           <Route path="*" exact={true} element={<Error/>}/>
         </Routes>
         <Footer/>
