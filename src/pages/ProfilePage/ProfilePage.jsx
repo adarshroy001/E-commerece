@@ -3,31 +3,33 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../store/UserSlice";
 import { useNavigate } from "react-router-dom";
 import { FiMail, FiPhone, FiHeart, FiPackage, FiLogOut } from "react-icons/fi";
-import axios from "axios";
 
 const UserProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
+  // Get user info from Redux store
   const { userInfo } = useSelector((state) => state.user);
+  
+  // Local state to hold user data from Redux or localStorage
   const [userData, setUserData] = useState(userInfo);
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await axios.get("http://localhost:4000/api/auth/getUserInfo");
-        setUserData(response.data);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
+    if (userInfo) {
+      setUserData(userInfo); // If user info is in Redux, use it
+    } else {
+      const storedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
+      if (storedUserInfo) {
+        setUserData(storedUserInfo); // Fallback to localStorage if available
       }
-    };
-
-    if (!userInfo) getData();
-  }, [userInfo]);
+    }
+  }, [userInfo]); // Update whenever userInfo in Redux changes
 
   const handleLogout = () => {
-    dispatch(logout());
-    localStorage.removeItem("authToken");
-    navigate("/");
+    dispatch(logout()); // Clear user data from Redux
+    localStorage.removeItem("authToken"); // Remove token from localStorage
+    localStorage.removeItem("userInfo"); // Remove user info from localStorage
+    navigate("/"); // Redirect to home page
   };
 
   return (
@@ -53,11 +55,11 @@ const UserProfile = () => {
             <FiMail className="w-5 h-5 text-gray-500" />
             <span className="text-gray-700">{userData?.email}</span>
           </div>
-          
+
           <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
             <FiPhone className="w-5 h-5 text-gray-500" />
             <span className="text-gray-700">
-              {userData?.phone || 'Phone number not provided'}
+              {userData?.phone || "Phone number not provided"}
             </span>
           </div>
         </div>

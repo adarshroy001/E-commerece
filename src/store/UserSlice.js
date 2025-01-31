@@ -4,7 +4,7 @@ const storedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
 const storedToken = localStorage.getItem("authToken");
 
 const initialState = {
-    isLoggedIn: !!storedToken, // Convert token presence to boolean
+    isLoggedIn: !!storedToken, 
     userInfo: storedUserInfo, 
     authToken: storedToken,
 };
@@ -39,8 +39,13 @@ const userSlice = createSlice({
             // Update localStorage
             localStorage.setItem("userInfo", JSON.stringify(state.userInfo));
         },
+        setUser(state, action) {
+            state.userInfo = action.payload;
+            localStorage.setItem("userInfo", JSON.stringify(action.payload));
+        }
     },
 });
 
-export const { login, logout, updateProfile } = userSlice.actions;
+export const { login, logout, updateProfile, setUser } = userSlice.actions;
 export default userSlice.reducer;
+

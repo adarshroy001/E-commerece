@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../../store/UserSlice";
 import { Link, useNavigate } from "react-router-dom"; 
-import { useAuth } from "../../middleWare/isAuth";
+import axios from "axios";
 
 const SignInForm = ({ toggleForm }) => {
   const [email, setEmail] = useState("");
@@ -25,25 +25,33 @@ const SignInForm = ({ toggleForm }) => {
         },
         body: JSON.stringify({ email, password }),
       });
-
-      const data = await response.json(); 
-
-      if (!response.ok) {
-        throw new Error(data.message || "Login failed. Try again!");
+      // Parse the JSON response body
+      const responseData = await response.json();
+      console.log(responseData);
+      
+        // Destructure the token and check if it's missing
+        const { token, user } = responseData;
+      if (!token) {
+        throw new Error(responseData.message || "Login failed. Token missing . try again!");
       }
-
-      setSuccess(data.message || "Login successful!");
+      const {data: userInfo } = await axios.get("http://localhost:4000/api/auth/getUserInfo", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
       dispatch(
         login({
-          userInfo: data.user, 
-          authToken: data.token,
+          userInfo, 
+          authToken: token,
         })
       );
 
       //  Save authentication details in localStorage
-      localStorage.setItem("authToken", data.token);
-      localStorage.setItem("userInfo", JSON.stringify(data.user));
+      localStorage.setItem("authToken", token);
+      localStorage.setItem("userInfo", JSON.stringify(userInfo));
+
+      setSuccess(responseData.message || "Login successful!");
 
       //  Redirect to home page after successful login
       navigate("/");
@@ -53,9 +61,6 @@ const SignInForm = ({ toggleForm }) => {
     }
   };
 
-  //  If already logged in, redirect to home page
-  const isLoggedIn = useAuth();
-  if (isLoggedIn) return <Navigate to={"/"} />;
 
   return (
     <div className="flex items-center justify-center min-h-[80vh] bg-[#dfebf6]">
