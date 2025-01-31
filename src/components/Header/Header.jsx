@@ -9,11 +9,15 @@ import logo2 from '../../assets/logo2.png'
 import { Link, NavLink } from 'react-router-dom';
 import { IoIosHeartEmpty } from 'react-icons/io';
 import { useAuth } from '../../middleWare/isAuth';
+import { useSelector } from 'react-redux';
 
 function Header() {
   const context = useContext(MyContext);
     //Checking is loggedin
     const isLoggedIn = useAuth(); // Now it's a boolean
+  //hadling Name 
+  const {userInfo} = useSelector((state) =>state.user)
+  const letter = userInfo.name
 
   return (
     <div className="topHeader w-full border-solid border-[rgba(0,0,0,.1)] bg-white   ">
@@ -45,7 +49,7 @@ function Header() {
           <div className='w-fit '>
             {
               isLoggedIn? (
-                <button className='h-[45px] w-[45px] min-h-[45px] min-w-[45px]  border rounded-full flex justify-center items-center active:bg-gray-300 active:scale-95  border-[rgba(0,0,0,0.2)]'>  <CiUser className='text-3xl ' /></button>
+                <Link  to={'/Profile'} className='h-[45px] w-[45px] min-h-[45px] min-w-[45px]  border rounded-full flex justify-center items-center active:bg-gray-300 active:scale-95  border-[rgba(0,0,0,0.2)] text-2xl font-semibold text-[#ea2b0f]'>{letter.charAt(0).toUpperCase() || <CiUser/>} </Link>
               ):(
                 <NavLink to={'/login'} className={({isActive}) => isActive? 'text-[#ffffff] bg-[#ea2b0f] text-lg font-bold px-4 py-2 rounded-full ' : 'text-[#ea2b0f] text-lg font-bold px-4 py-2 rounded-full bg-[#fff1ee] '}>
                   LogIn
