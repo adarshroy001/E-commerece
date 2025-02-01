@@ -84,15 +84,16 @@ useEffect(() => {
           <Route path="/Fashion" exact={true} element={<Fashion />} />
           <Route path="/Bags" exact={true} element={<Bags />} />
           <Route path="/Footware" exact={true} element={<Footware />} />
-          <Route path="/Foodtype" exact={true} element={< Foodtype />} />
+        {/* Auth */}
           <Route path="/signup" exact={true} element={<SignUpForm/>}/>
           <Route path="/login" exact={true} element={<SignInForm/>}/>
+        {/* ProductPage */}
+          <Route path="/product/:id" exact={true} element={< Foodtype />} />
 
         {/* Protected Routes */}
         <Route element={<ProtectedRoute/>}>
           <Route path="/Profile" exact={true} element={<ProfilePage/>}/>
           <Route path="/Cart" exact={true} element={<Cart/>} />
-
         </Route>
 
 

@@ -4,10 +4,18 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FoodtypeImg from './FoodtypeImg';
+import { useLocation } from 'react-router-dom';
 
 function Foodtype() {
+  //Handling Dynamic Routing
+  const location = useLocation();
+  const product = location.state?.product;
+
+  if (!product) return <h2>Product not found</h2>;
+
+
   const [quantity, setQuantity] = useState(5);
-  const productTitle = "All Natural Italian-Style Chicken Meatballs";
+  const productTitle = "All ";
   const restaurantName = "Sayonara Motel";
   const productPrice = { original: 4.29, discounted: 3.29 };
   const productDescription =
@@ -26,7 +34,7 @@ function Foodtype() {
     <div className="w-full overflow-hidden m-auto mt-5  mb-10 pt-4 sm:pt-8 pb-4 sm:pb-8 z-10 relative">
       <div className="Title w-[85%] border-b sm:w-[90%] lg:w-[80vw] mx-auto relative">
         <p className="text-lg sm:text-2xl font-semibold text-gray-800 mx-3">
-          {productTitle}
+          {product.name}
         </p>
         <span className="text-base sm:text-lg font-semibold text-gray-800 mx-3">
           Restaurant:&nbsp;
@@ -37,8 +45,8 @@ function Foodtype() {
         <Rating name="half-rating-read" defaultValue={4.5} precision={0.1} readOnly />
       </div>
       <div className="Bottom-half w-[90%] lg:w-[80vw] mx-auto mt-4 grid grid-cols-1 lg:grid-cols-2 sm:grid-cols-2">
-        <div className="image w-full mt-0 sm:mt-4">
-          <FoodtypeImg />
+        <div className="image w-full mt-0 sm:mt-4 ">
+          <FoodtypeImg images={product.images}/>
         </div>
         <div className="text-part ml-5 w-full">
           <div className="mt-3  mb-3 w-4/5">

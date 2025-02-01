@@ -4,38 +4,29 @@ import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/thumbs';
 import { FreeMode, Thumbs } from 'swiper/modules';
-import food_5 from '../../assets/food_5.png';
-import food_7 from '../../assets/food_7.png';
-import food_9 from '../../assets/food_9.png';
-import food_8 from '../../assets/food_8.png';
 
-function FoodtypeImg() {
+function FoodtypeImg({images}) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   return (
-      <>       
-               <div className=''>
+      <div>       
+               <div className='md:h-96 '>
                     <Swiper
                         slidesPerView={1}
                         thumbs={{ swiper: thumbsSwiper }}
                         modules={[FreeMode, Thumbs]}
-                        className="mySwiper2  w-[90%] rounded-xl "
+                        className="mySwiper2 rounded-xl !ml-8 w-[75%] !h-[100%]"
                     >
-                        <SwiperSlide>
-                          <img src={food_5} className='rounded-xl object-fill '/>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                        <img src={food_7} className='rounded-xl object-fill ' />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                        <img src={food_9} className='rounded-xl object-fill ' />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                        <img src={food_8} className='rounded-xl object-fill ' />
-                        </SwiperSlide>
+                      {
+                        images.map((item)=>(
+                          <SwiperSlide className=''>
+                          <img src={item} className='rounded-xl object-fill w-full h-full p-1'/>
+                          </SwiperSlide>
+                        ))
+                      }
                     </Swiper>
                </div>
-                <div>
+                <div className='overflow-y-auto'>
                 <Swiper
                     onSwiper={setThumbsSwiper}
                     spaceBetween={6}
@@ -43,24 +34,19 @@ function FoodtypeImg() {
                     freeMode={true}
                     watchSlidesProgress={true}
                     modules={[FreeMode, Thumbs]}
-                    className="mySwiper rounded-xl w-[90%] "
+                    className="mySwiper rounded-xl !ml-8 "
                  >
-                    <SwiperSlide className='!w-24 !h-24'>
-                      <img src={food_5} className='rounded-xl object-fill mt-3 ' />
+                  {
+                    images.map((item)=>(
+                      <SwiperSlide className='!w-24 !h-24'>
+                      <img src={item} className='rounded-xl object-fill mt-3 ' />
                     </SwiperSlide>
-                    <SwiperSlide className='!w-24 !h-24'>
-                    <img src={food_7} className='rounded-xl object-fill mt-3' />
-                    </SwiperSlide>
-                    <SwiperSlide className='!w-24 !h-24'>
-                    <img src={food_9} className='rounded-xl object-fill mt-3 ' />
-                    </SwiperSlide>
-                    <SwiperSlide className='!w-24 !h-24'>
-                    <img src={food_8} className='rounded-xl object-fill mt-3 ' />
-                    </SwiperSlide>
+                    ))
+                  }
                   </Swiper>
                 </div>
                 
-      </>   
+      </div>   
   )
 }
 export default FoodtypeImg

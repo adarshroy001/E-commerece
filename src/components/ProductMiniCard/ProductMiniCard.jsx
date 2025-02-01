@@ -15,7 +15,9 @@ function ProductMiniCard({ className = '', product }) {
   }, [product]);
 
   return (
-    <Link to={'/Foodtype'} className={`w-full bg-white shadow-lg rounded-lg overflow-hidden group sm:hover:scale-[.99] sm:hover:border-[#c9dcde] sm:hover:border transition ${className}`}>
+    <Link to={`/product/${product._id}`} 
+    state={{product}}
+    className={`w-full bg-white shadow-lg rounded-lg overflow-hidden group sm:hover:scale-[.99] sm:hover:border-[#c9dcde] sm:hover:border transition ${className}`}>
       <div className="relative">
         <div className="absolute top-2 left-2 bg-mypink text-white text-xs font-bold py-1 px-2.5 rounded">
           24%
