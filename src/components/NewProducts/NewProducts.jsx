@@ -1,4 +1,4 @@
-import ProductMiniCardSliderVersion from "../../components/ProductMiniCard/ProductMiniCardSliderVersion";
+import ProductMiniCard from "../ProductMiniCard/ProductMiniCard";
 
 function NewProducts() {
   return ( 
@@ -12,15 +12,15 @@ function NewProducts() {
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 sm:gap-2 md:gap-3 mt-6 mb-6">
-        <ProductMiniCardSliderVersion />
-        <ProductMiniCardSliderVersion />
-        <ProductMiniCardSliderVersion />
-        <ProductMiniCardSliderVersion />
-        <ProductMiniCardSliderVersion />
-        <ProductMiniCardSliderVersion />
-        <ProductMiniCardSliderVersion />
-        <ProductMiniCardSliderVersion />
-        <ProductMiniCardSliderVersion className="hidden md:block lg:hidden " />
+        <ProductMiniCard />
+        <ProductMiniCard />
+        <ProductMiniCard />
+        <ProductMiniCard />
+        <ProductMiniCard />
+        <ProductMiniCard />
+        <ProductMiniCard />
+        <ProductMiniCard />
+        <ProductMiniCard className="hidden md:block lg:hidden " />
       </div>
     </div>
   );

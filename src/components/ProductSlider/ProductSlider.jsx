@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import ProductMiniCardSliderVersion from '../../components/ProductMiniCard/ProductMiniCardSliderVersion';
+import ProductMiniCard from '../ProductMiniCard/ProductMiniCard';
 
 function ProductSlider() {
       const [isNavigationEnabled, setIsNavigationEnabled] = useState(true);
@@ -59,7 +59,7 @@ function ProductSlider() {
           .map((_, index) => (
             <SwiperSlide key={index} className="flex justify-center items-center mt-6 mb-6 ">
               <div className='sm:hover:scale-[.99] border border-[#c9dcde] rounded-lg transition'>
-              <ProductMiniCardSliderVersion />
+              <ProductMiniCard />
               </div>
             </SwiperSlide>
           ))}
