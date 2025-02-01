@@ -10,12 +10,12 @@ function FoodtypeImg({images}) {
 
   return (
       <div>       
-               <div className='md:h-96 '>
+               <div className='xl:h-96 '>
                     <Swiper
                         slidesPerView={1}
                         thumbs={{ swiper: thumbsSwiper }}
                         modules={[FreeMode, Thumbs]}
-                        className="mySwiper2 rounded-xl !ml-8 w-[75%] !h-[100%]"
+                        className="mySwiper2 rounded-xl !ml-4 sm:!ml-8 w-[85%] sm:w-[90%] xl:w-[75%] !h-[100%]"
                     >
                       {
                         images.map((item)=>(
@@ -34,7 +34,7 @@ function FoodtypeImg({images}) {
                     freeMode={true}
                     watchSlidesProgress={true}
                     modules={[FreeMode, Thumbs]}
-                    className="mySwiper rounded-xl !ml-8 "
+                    className="mySwiper rounded-xl !ml-5 sm:!ml-9 "
                  >
                   {
                     images.map((item)=>(
