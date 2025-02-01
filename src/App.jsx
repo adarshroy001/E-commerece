@@ -22,13 +22,19 @@ import { useDispatch } from 'react-redux';
 import { login } from './store/UserSlice';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import ProtectedRoute from './protected/ProtectedRoute';
+import { fetchProducts } from './store/ProductSlice';
 
 const MyContext = createContext();
+export const server = "http://localhost:4000";
+
 
 function App() {
 // handlinf authentication 
 const dispatch = useDispatch();
 useEffect(() => {
+// Fetching Porduct 
+  dispatch(fetchProducts());
+  //Fetching AuthInfo
   const storedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
   const storedToken = localStorage.getItem("authToken");
 

@@ -1,33 +1,45 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import { server } from "../App";
+
+// Async action to fetch products
+export const fetchProducts = createAsyncThunk(
+  "products/fetchProducts",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${server}/api/products`);      
+      return response.data; // Return fetched products
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Failed to fetch products");
+    }
+  }
+);
 
 const initialState = {
-    products: [], // Array to store product details
-    loading: false, // Flag to track loading state
-    error: null, // Store error message if any
+  products: [], // Stores product details
+  loading: false, // Loading flag
+  error: null, // Stores error message
 };
 
-const ProductSlice = createSlice({
-    name: "product",
-    initialState,
-    reducers: {
-        setProducts(state, action) {
-            state.products = action.payload;
-        },
-        setLoading(state, action) {
-            state.loading = action.payload;
-        },
-        setError(state, action) {
-            state.error = action.payload;
-        },
-        filterProducts(state, action) {
-            const { category, subCategory } = action.payload;
-            state.products = state.products.filter(product =>
-                (category ? product.category === category : true) &&
-                (subCategory ? product.subCategory === subCategory : true)
-            );
-        },
-    },
+const productSlice = createSlice({
+  name: "products", // Ensure consistency with `configureStore`
+  initialState,
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchProducts.pending, (state) => {
+        state.loading = true;
+        state.error = null; // Reset error on new fetch
+      })
+      .addCase(fetchProducts.fulfilled, (state, action) => {
+        state.loading = false;
+        state.products = action.payload;
+      })
+      .addCase(fetchProducts.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload; // Use meaningful error
+      });
+  },
 });
 
-export const { setProducts, setLoading, setError, filterProducts } = ProductSlice.actions;
-export default ProductSlice.reducer;
+export default productSlice.reducer;
+
