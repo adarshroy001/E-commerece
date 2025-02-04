@@ -8,7 +8,7 @@ import { IoMenuSharp } from "react-icons/io5";
 import logo2 from '../../assets/logo2.png'
 import { Link, NavLink } from 'react-router-dom';
 import { IoIosHeartEmpty } from 'react-icons/io';
-import  useAuth  from '../../middleWare/useAuth';
+import  useAuth  from '../../hooks/useAuth';
 import { useSelector } from 'react-redux';
 
 function Header() {

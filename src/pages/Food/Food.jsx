@@ -1,10 +1,9 @@
 import React from 'react';
-import useFilter from '../../middleWare/useFilter';
+import useFilter from '../../hooks/useFilter';
 import ProductMiniCard from '../../components/ProductMiniCard/ProductMiniCard';
 
 function Food() {
   const Products = useFilter('Food:Non-Veg');
-
   return (
     <div className='w-[90vw] xl:w-[85vw] my-8 mx-auto'>
       <h2 className='text-2xl text-myblue font-bold '>

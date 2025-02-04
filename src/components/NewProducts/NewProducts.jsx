@@ -1,6 +1,6 @@
 import ProductMiniCard from "../ProductMiniCard/ProductMiniCard";
 
-function NewProducts() {
+function NewProducts({Products}) {
   return ( 
     <div className="w-[90vw] xl:w-[85vw] mx-auto mt-8">
       <div className="flex justify-between items-center">
@@ -12,15 +12,11 @@ function NewProducts() {
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 sm:gap-2 md:gap-3 mt-6 mb-6">
-        <ProductMiniCard />
-        <ProductMiniCard />
-        <ProductMiniCard />
-        <ProductMiniCard />
-        <ProductMiniCard />
-        <ProductMiniCard />
-        <ProductMiniCard />
-        <ProductMiniCard />
-        <ProductMiniCard className="hidden md:block lg:hidden " />
+      {
+      Products.map((item)=>(
+        <ProductMiniCard product={item} key={item.id}/>
+      ))
+      }
       </div>
     </div>
   );

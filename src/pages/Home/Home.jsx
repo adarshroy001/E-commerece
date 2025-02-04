@@ -5,14 +5,17 @@ import ProductSlider from '../../components/ProductSlider/ProductSlider'
 import NewProducts from '../../components/NewProducts/NewProducts';
 import ImageCard from '../../components/ImageCard/ImageCard';
 import Testimonials from '../../components/Testimonial/Testimonial';
+import useFilter from '../../hooks/useFilter';
 
 
 
 function Home() {
+  const Products = useFilter('Food:Non-Veg');
+
   return (
     <div className=''>
       <Sliderr />
-      <ProductSlider />
+      <ProductSlider Products={Products} />
       <div className='w-[90vw] xl:w-[85vw] lg:h-fit mx-auto mt-4 grid grid-col-1 lg:grid-cols-10 xl:grid-cols-8 gap-4 p-1'>
         <div className='lg:col-span-3 xl:col-span-2'>
           <p className=" capitalize text-xl font-bold sm:uppercase  sm:text-2xl sm:font-semibold  text-gray-800 sm:ml-2">Featured Restaurant</p>
@@ -23,7 +26,7 @@ function Home() {
           <ProductMegaCard />
         </div>
       </div>
-      <NewProducts />
+      <NewProducts Products={Products} />
       <Testimonials />
     </div>
 
