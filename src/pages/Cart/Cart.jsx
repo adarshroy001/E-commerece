@@ -1,39 +1,34 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { CartItem } from '../../components/Cart/CartItem';
-import { CouponForm } from '../../components/Cart/CouponForm';
-import { SAMPLE_ITEMS } from '../../data/sampleItems';
-import { VALID_COUPONS } from '../../data/validCoupons';
 import { BsBag } from "react-icons/bs";
-
+import { fetchCart, removeFromCart, updateCart, clearCart } from '../../store/CartSlice';
 
 function Cart() {
-  const [items, setItems] = useState(SAMPLE_ITEMS);
-  const [appliedCoupon, setAppliedCoupon] = useState(null);
+  const dispatch = useDispatch();
+  const { items = [], loading = false } = useSelector((state) => state.Cart || {});
 
-  const updateQuantity = (id, newQuantity) => {
-    setItems(items.map(item =>
-      item.id === id ? { ...item, quantity: newQuantity } : item
-    ).filter(item => item.quantity > 0));
+
+  useEffect(() => {
+    dispatch(fetchCart());
+  }, [dispatch]);
+
+  const handleRemove = (productId) => {
+    dispatch(removeFromCart(productId));
   };
 
-  const removeItem = (id) => {
-    setItems(items.filter(item => item.id !== id));
+  const handleQuantityChange = (productId, quantity) => {
+    dispatch(updateCart({ productId, quantity }));
   };
 
-  const handleApplyCoupon = (code) => {
-    const coupon = VALID_COUPONS.find(c => c.code === code.toUpperCase());
-    if (coupon) {
-      setAppliedCoupon(coupon.code);
-    } else {
-      alert('Invalid coupon code');
-    }
+  const handleClearCart = () => {
+    dispatch(clearCart());
   };
 
-  const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const discount = appliedCoupon
-    ? subtotal * (VALID_COUPONS.find(c => c.code === appliedCoupon)?.discount || 0)
-    : 0;
-  const total = subtotal - discount;
+  if (loading) return <h2 className="min-h-screen mx-auto my-auto">Loading...</h2>;
+
+  const subtotal = items.reduce((sum, item) => sum + item.quantity * 10, 0); // Placeholder price (adjust in backend)
+  const total = subtotal;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -51,21 +46,14 @@ function Cart() {
           ) : (
             <>
               <div className="space-y-4">
-                {items.map(item => (
+                {items.map((item) => (
                   <CartItem
-                    key={item.id}
+                    key={item.productId}
                     item={item}
-                    onUpdateQuantity={updateQuantity}
-                    onRemove={removeItem}
+                    onUpdateQuantity={handleQuantityChange}
+                    onRemove={handleRemove}
                   />
                 ))}
-              </div>
-
-              <div className="mt-8 border-t border-gray-200 pt-4">
-                <CouponForm
-                  onApplyCoupon={handleApplyCoupon}
-                  appliedCoupon={appliedCoupon}
-                />
               </div>
 
               <div className="mt-6 space-y-2">
@@ -73,12 +61,6 @@ function Cart() {
                   <span>Subtotal</span>
                   <span>${subtotal.toFixed(2)}</span>
                 </div>
-                {discount > 0 && (
-                  <div className="flex justify-between text-green-600">
-                    <span>Discount</span>
-                    <span>-${discount.toFixed(2)}</span>
-                  </div>
-                )}
                 <div className="flex justify-between text-xl font-bold">
                   <span>Total</span>
                   <span>${total.toFixed(2)}</span>
@@ -99,4 +81,3 @@ function Cart() {
 }
 
 export default Cart;
-
