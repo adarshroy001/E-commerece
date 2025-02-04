@@ -6,8 +6,7 @@ import { fetchCart, removeFromCart, updateCart, clearCart } from '../../store/Ca
 
 function Cart() {
   const dispatch = useDispatch();
-  const { items = [], loading = false } = useSelector((state) => state.Cart || {});
-
+  const { items = [], loading = false } = useSelector((state) => state.cart || {});
 
   useEffect(() => {
     dispatch(fetchCart());
@@ -27,7 +26,11 @@ function Cart() {
 
   if (loading) return <h2 className="min-h-screen mx-auto my-auto">Loading...</h2>;
 
-  const subtotal = items.reduce((sum, item) => sum + item.quantity * 10, 0); // Placeholder price (adjust in backend)
+  // Use actual prices from product data
+  const subtotal = items.reduce(
+    (sum, item) => sum + item.quantity * item.productId.price,
+    0
+  );
   const total = subtotal;
 
   return (
@@ -48,7 +51,7 @@ function Cart() {
               <div className="space-y-4">
                 {items.map((item) => (
                   <CartItem
-                    key={item.productId}
+                    key={item.productId._id} // Use unique ID
                     item={item}
                     onUpdateQuantity={handleQuantityChange}
                     onRemove={handleRemove}

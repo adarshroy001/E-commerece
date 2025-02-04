@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../../store/UserSlice";
 import { Link, useNavigate } from "react-router-dom";
-import axios, { all } from "axios";
+import axios from "axios";
 
 const SignInForm = ({ toggleForm }) => {
   const [email, setEmail] = useState("");
