@@ -14,7 +14,7 @@ import Fashion from './pages/Fashion/Fashion';
 import Bags from './pages/Bags/Bags';
 import Footware from './pages/Footware/Footware';
 import Foodtype from './pages/Product/Foodtype';
-import Cart from './pages/Cart/Cart';
+import CartPage from './pages/Cart/CartPage';
 import Error from './pages/Error/Error';
 import SignInForm from './pages/Auth/Login';
 import SignUpForm from './pages/Auth/Signup';
@@ -93,7 +93,7 @@ useEffect(() => {
         {/* Protected Routes */}
         <Route element={<ProtectedRoute/>}>
           <Route path="/Profile" exact={true} element={<ProfilePage/>}/>
-          <Route path="/Cart" exact={true} element={<Cart/>} />
+          <Route path="/Cart" exact={true} element={<CartPage/>} />
         </Route>
 
 
