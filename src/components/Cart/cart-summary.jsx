@@ -1,57 +1,34 @@
-export function CartSummary({ cart, onUpdateShipping }) {
-  const subtotal = cart.items.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  const shippingCost = cart.shipping === "express" ? 15 : 0
-  const total = subtotal + shippingCost
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+
+const CartSummary = () => {
+  const { items } = useSelector((state) => state.cart);
+  const [shipping, setShipping] = useState(0);
+
+  const subtotal = items.reduce((total, item) => total + item.productId.price * item.quantity, 0);
+  const total = subtotal + shipping;
 
   return (
-    <div className="rounded-lg border p-6 space-y-4">
-      <h2 className="font-semibold text-lg">Cart summary</h2>
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <input
-              type="radio"
-              id="free"
-              name="shipping"
-              value="free"
-              checked={cart.shipping === "free"}
-              onChange={() => onUpdateShipping("free")}
-              className="rounded-full"
-            />
-            <label htmlFor="free">Free shipping</label>
-          </div>
-          <span>$0.00</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <input
-              type="radio"
-              id="express"
-              name="shipping"
-              value="express"
-              checked={cart.shipping === "express"}
-              onChange={() => onUpdateShipping("express")}
-              className="rounded-full"
-            />
-            <label htmlFor="express">Express shipping</label>
-          </div>
-          <span>+$15.00</span>
-        </div>
+    <div className="cart-summary ">
+      <h3 className="text-myblue">Cart Summary</h3>
+      <div className="shipping-options">
+        <label>
+          <input type="radio" name="shipping" value="0" checked={shipping === 0} onChange={() => setShipping(0)} />
+          Free Shipping - $0.00
+        </label>
+        <label>
+          <input type="radio" name="shipping" value="15" checked={shipping === 15} onChange={() => setShipping(15)} />
+          Express Shipping - $15.00
+        </label>
       </div>
-      <div className="border-t pt-4">
-        <div className="flex justify-between">
-          <span>Subtotal</span>
-          <span>${subtotal.toFixed(2)}</span>
-        </div>
-        <div className="flex justify-between font-medium mt-4">
-          <span>Total</span>
-          <span>${total.toFixed(2)}</span>
-        </div>
+      
+      <div className="cart-totals">
+        <p>Subtotal: ${subtotal}.00</p>
+        <p>Total: ${total}.00</p>
+        <button className="bg-red-500 text-white px-6 py-2 rounded-md mt-4">Checkout</button>        
       </div>
-      <button className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-800 transition-colors">
-        Checkout
-      </button>
     </div>
-  )
-}
+  );
+};
 
+export default CartSummary;

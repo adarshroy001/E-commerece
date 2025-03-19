@@ -6,14 +6,12 @@ import {server} from '../App';
 export const fetchCart = createAsyncThunk("cart/fetchCart",
     async (_, { rejectWithValue }) => {
         try {
-            const token = localStorage.getItem("authToken");
-            console.log('authToken' , token );
-            
+            // const token = localStorage.getItem("authToken");
+            const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZDJhN2Q5OWViMjY1YTY0Y2NhYTE5YSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzQxODU4Nzc4LCJleHAiOjE3NDI0NjM1Nzh9.gLQ0NnLmq858uDt22I4mvijBb1RHP0IX0R6dzLdHjD0'
+            console.log(token);
             const config = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
             const response = await axios.get(`${server}/api/cart`, config);
-            console.log("API Response:", response);
-
-
+            console.log("API Response:", response.data);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response.data);

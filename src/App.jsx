@@ -23,6 +23,7 @@ import { login } from './store/UserSlice';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import ProtectedRoute from './protected/ProtectedRoute';
 import { fetchProducts } from './store/ProductSlice';
+import { fetchCart } from './store/CartSlice';
 
 const MyContext = createContext();
 export const server = "http://localhost:4000";
@@ -32,9 +33,10 @@ function App() {
 // handlinf authentication 
 const dispatch = useDispatch();
 useEffect(() => {
-// Fetching Porduct 
+  // Fetch Products
   dispatch(fetchProducts());
-  //Fetching AuthInfo
+
+  // Fetching Auth Info
   const storedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
   const storedToken = localStorage.getItem("authToken");
 
@@ -45,8 +47,12 @@ useEffect(() => {
               authToken: storedToken,
           })
       );
+
+      // Fetch Cart after login
+      dispatch(fetchCart());
   }
 }, [dispatch]);
+
 
 
   const [countrylist, setCountryList] = useState([]);

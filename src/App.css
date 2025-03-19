@@ -6,3 +6,114 @@
     ::-webkit-scrollbar{width: 8px !important; height: 8px !important; }
     ::-webkit-scrollbar-thumb{background: #ccc !important;}
     ::-webkit-scrollbar-track{background:transparent !important;}
+
+
+    /* cart css  */
+    .cart-container {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+      }
+      
+      .cart-title {
+        font-size: 24px;
+        font-weight: bold;
+      }
+      
+      .cart-content {
+        display: flex;
+        justify-content: space-between;
+      }
+      
+      .cart-items {
+        flex: 2;
+      }
+      
+      .cart-item {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #ddd;
+        padding: 15px 0;
+      }
+      
+      .cart-item-image {
+        width: 60px;
+        height: 60px;
+        border-radius: 8px;
+        background-color: #f0f0f0;
+        margin-right: 15px;
+      }
+      
+      .cart-item-details {
+        flex: 1;
+      }
+      
+      .remove-button {
+        color: red;
+        background: none;
+        border: none;
+        cursor: pointer;
+      }
+      
+      .cart-item-actions {
+        display: flex;
+        align-items: center;
+      }
+      
+      .cart-item-actions button {
+        width: 30px;
+        height: 30px;
+        font-size: 18px;
+        margin: 0 5px;
+      }
+      
+      .cart-item-price {
+        margin-left: 15px;
+        font-weight: bold;
+      }
+      
+      .clear-cart-button {
+        margin-top: 10px;
+        background: red;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      
+      .cart-summary {
+        flex: 1;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 8px;
+      }
+      
+      .cart-summary h3 {
+        font-size: 18px;
+        font-weight: bold;
+      }
+      
+      .shipping-options {
+        margin: 15px 0;
+      }
+      
+      .shipping-options label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      
+      .cart-totals {
+        margin-top: 15px;
+      }
+      
+      .checkout-button {
+        width: 100%;
+        padding: 10px;
+        background: black;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      
