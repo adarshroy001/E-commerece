@@ -6,6 +6,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FoodtypeImg from './FoodtypeImg';
 import { useLocation, useParams } from 'react-router-dom';
 import { server } from '../../App';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function Foodtype() {
   const location = useLocation();
@@ -46,6 +48,26 @@ function Foodtype() {
 
   const handleIncrease = () => setQuantity(quantity + 1);
   const handleDecrease = () => quantity > 1 && setQuantity(quantity - 1);
+
+  //add to cart 
+  const addProductToCart = async () => {
+    try {
+      await axios.post(`${server}/api/cart/add`, {
+        productId: product._id,
+        quantity: quantity
+      },
+        {
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZDJhN2Q5OWViMjY1YTY0Y2NhYTE5YSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzQxODU4Nzc4LCJleHAiOjE3NDI0NjM1Nzh9.gLQ0NnLmq858uDt22I4mvijBb1RHP0IX0R6dzLdHjD0`, // If using JWT auth
+          },
+        })
+      toast.success("Item added to cart!");
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to add item to cart.");
+      console.error("Add to cart error:", error);
+
+    }
+  }
 
   return (
     <div className="w-full overflow-hidden m-auto mt-5 mb-10 pt-4 sm:pt-8 pb-4 sm:pb-8 z-10 relative">
@@ -112,7 +134,9 @@ function Foodtype() {
             </button>
           </div>
 
-          <button className="mt-5 px-10 bg-myblue text-white text-sm font-semibold py-2 rounded-3xl border border-myblue active:scale-95 transition sm:hover:bg-[#1d2d63]">
+          <button 
+          onClick={addProductToCart}
+          className="mt-5 px-10 bg-myblue text-white text-sm font-semibold py-2 rounded-3xl border border-myblue active:scale-95 transition sm:hover:bg-[#1d2d63]">
             Add to cart
           </button>
 

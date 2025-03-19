@@ -109,7 +109,7 @@ useEffect(() => {
         {/* Protected Routes */}
         <Route element={<ProtectedRoute/>}>
           <Route path="/Profile" exact={true} element={<ProfilePage/>}/>
-          <Route path="/Cart" exact={true} element={<CartPage/>} />
+          <Route path="/cart" exact={true} element={<CartPage/>} />
         </Route>
 
 

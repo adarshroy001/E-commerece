@@ -3,8 +3,6 @@ import { BsArrowsFullscreen } from "react-icons/bs";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Rating from '@mui/material/Rating';
 import { Link } from 'react-router-dom';
-import { addToCart } from '../../store/CartSlice';
-import { useDispatch } from "react-redux";
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
@@ -39,10 +37,10 @@ function ProductMiniCard({ className = '', product }) {
   }
 
   return (
-    <Link
+    <Link 
       state={{ product }}
       className={`w-full bg-white shadow-lg rounded-lg overflow-hidden group sm:hover:scale-[.99] sm:hover:border-[#c9dcde] sm:hover:border transition ${className}`}>
-      <div className="relative">
+      <Link to={`/product/${product._id}`} className="relative">
         <div className="absolute top-2 left-2 bg-mypink text-white text-xs font-bold py-1 px-2.5 rounded">
           24%
         </div>
@@ -64,9 +62,10 @@ function ProductMiniCard({ className = '', product }) {
           alt={product?.name || "Product"}
           className="w-full h-[200px] object-cover rounded-t-lg sm:h-[250px]"
         />
-      </div>
+      </Link>
 
       <div className="p-4">
+        <Link to={`/product/${product._id}`}>
         <h3 className="text-sm sm:text-base md:text-base lg:text-lg font-semibold text-gray-800">
           {ProductData}
         </h3>
@@ -78,6 +77,7 @@ function ProductMiniCard({ className = '', product }) {
           <span className="text-gray-400 line-through text-xs sm:text-sm">$4.29</span>
           <span className="text-red-500 text-sm sm:text-lg font-semibold ml-2">$3.29</span>
         </div>
+        </Link>
         <button
           onClick={addProductToCart}
           className="mt-4 w-full select-none bg-mypink text-white sm:bg-white sm:text-mypink text-xs sm:text-sm font-semibold py-2 rounded-3xl sm:border border-mypink hover:text-white hover:bg-mypink transition active:scale-95">
