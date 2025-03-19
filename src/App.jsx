@@ -24,6 +24,8 @@ import ProfilePage from './pages/ProfilePage/ProfilePage';
 import ProtectedRoute from './protected/ProtectedRoute';
 import { fetchProducts } from './store/ProductSlice';
 import { fetchCart } from './store/CartSlice';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const MyContext = createContext();
 export const server = "http://localhost:4000";
@@ -80,6 +82,14 @@ useEffect(() => {
   return (
     <BrowserRouter basename="/">
       <MyContext.Provider value={values}>
+      <ToastContainer 
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+      />
         <Header />
         <Catg />
         <Routes>

@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { BsArrowsFullscreen } from "react-icons/bs";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Rating from '@mui/material/Rating';
-import food_5 from '../../assets/food_5.png';
 import { Link } from 'react-router-dom';
+import { addToCart } from '../../store/CartSlice';
+import { useDispatch } from "react-redux";
+import axios from 'axios';
+import { toast } from 'react-toastify';
+
 
 function ProductMiniCard({ className = '', product }) {
   const [ProductData, SetProductData] = useState('');
@@ -14,10 +18,30 @@ function ProductMiniCard({ className = '', product }) {
     }
   }, [product]);
 
+  const addProductToCart = async () => {
+
+    try {
+      await axios.post('http://localhost:4000/api/cart/add', {
+        productId: product._id,
+        quantity: 1
+      },
+        {
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZDJhN2Q5OWViMjY1YTY0Y2NhYTE5YSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzQxODU4Nzc4LCJleHAiOjE3NDI0NjM1Nzh9.gLQ0NnLmq858uDt22I4mvijBb1RHP0IX0R6dzLdHjD0`, // If using JWT auth
+          },
+        })
+      toast.success("Item added to cart!");
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to add item to cart.");
+      console.error("Add to cart error:", error);
+
+    }
+  }
+
   return (
-    <Link to={`/product/${product._id}`} 
-    state={{product}}
-    className={`w-full bg-white shadow-lg rounded-lg overflow-hidden group sm:hover:scale-[.99] sm:hover:border-[#c9dcde] sm:hover:border transition ${className}`}>
+    <Link
+      state={{ product }}
+      className={`w-full bg-white shadow-lg rounded-lg overflow-hidden group sm:hover:scale-[.99] sm:hover:border-[#c9dcde] sm:hover:border transition ${className}`}>
       <div className="relative">
         <div className="absolute top-2 left-2 bg-mypink text-white text-xs font-bold py-1 px-2.5 rounded">
           24%
@@ -36,7 +60,7 @@ function ProductMiniCard({ className = '', product }) {
           </button>
         </div>
         <img
-          src={product?.images?.[2] }
+          src={product?.images?.[2]}
           alt={product?.name || "Product"}
           className="w-full h-[200px] object-cover rounded-t-lg sm:h-[250px]"
         />
@@ -54,7 +78,9 @@ function ProductMiniCard({ className = '', product }) {
           <span className="text-gray-400 line-through text-xs sm:text-sm">$4.29</span>
           <span className="text-red-500 text-sm sm:text-lg font-semibold ml-2">$3.29</span>
         </div>
-        <button className="mt-4 w-full select-none bg-mypink text-white sm:bg-white sm:text-mypink text-xs sm:text-sm font-semibold py-2 rounded-3xl sm:border border-mypink hover:text-white hover:bg-mypink transition active:scale-95">
+        <button
+          onClick={addProductToCart}
+          className="mt-4 w-full select-none bg-mypink text-white sm:bg-white sm:text-mypink text-xs sm:text-sm font-semibold py-2 rounded-3xl sm:border border-mypink hover:text-white hover:bg-mypink transition active:scale-95">
           Add to cart
         </button>
       </div>
