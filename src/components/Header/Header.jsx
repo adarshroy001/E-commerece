@@ -6,17 +6,18 @@ import SearchBox from './SearchBox';
 import { MyContext } from '../../App';
 import { IoMenuSharp } from "react-icons/io5";
 import logo2 from '../../assets/logo2.png'
-import { Link, Navigate, NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { IoIosHeartEmpty } from 'react-icons/io';
 import  useAuth  from '../../hooks/useAuth';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 
+
 function Header() {
   const navigate = useNavigate();
   const context = useContext(MyContext);
-    //Checking is loggedin
+  //Checking is loggedin
   const isLoggedIn = useAuth(); // Now it's a boolean
   //hadling Name 
   const {userInfo} = useSelector((state) =>state.user)
@@ -31,7 +32,22 @@ function Header() {
       return navigate("/Cart"); 
     }
   }
-
+// Number of Product In Cart 
+var NumberofProductInCart = '00' 
+if (!isLoggedIn) {
+  NumberofProductInCart = '00'
+} else {
+    const {items} = useSelector((state) => state.cart);
+    if (items.length >99) {
+      NumberofProductInCart = ' 99+' 
+    }
+    else if (items.length <10) {
+      NumberofProductInCart = '0'+items.length || '00' ;
+    }
+    else{
+      NumberofProductInCart = items.length || '00' ;  
+    }
+}
   return (
     <div className="topHeader w-full border-solid border-[rgba(0,0,0,.1)] bg-white   ">
       <div className="top-strip bg-myyellow ">
@@ -59,7 +75,7 @@ function Header() {
             <button 
             onClick={handleCartPage}
             className='h-[45px] w-[45px] min-h-[45px] min-w-[45px]  border rounded-full flex justify-center items-center bg-[#fff1ee] active:bg-[#ffccc1] active:scale-95  border-[rgba(0,0,0,0.2)]'>  <BsBag className='text-2xl text-[#ea2b0f] ' /></button>
-            <span className="count absolute top-[-0.4rem] right-[-0.5rem]  text-center  rounded-full bg-[#ea2b0f] text-white h-[1.5rem] w-[1.5rem] text-sm">01</span>
+            <span className="count absolute top-[-0.4rem] right-[-0.5rem]  flex justify-center items-center  rounded-full bg-[#ea2b0f] text-white h-[1.8rem] w-[1.8rem] text-sm">{NumberofProductInCart}</span>
           </div>
           <div className='w-fit '>
             {

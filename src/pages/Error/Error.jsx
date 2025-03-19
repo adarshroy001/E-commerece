@@ -3,7 +3,7 @@ import error from '../../assets/error.avif'
 
 function Error() {
   return (
-<div class="bg-white flex items-center justify-center !h-[75vh] ">
+<div class="bg-white flex items-center justify-center !h-[100vh] ">
   <div class="text-center p-6 max-w-screen-lg mx-auto bg-white shadow-lg rounded-lg">
     <div class="mb-6">
       <img src={error} 
