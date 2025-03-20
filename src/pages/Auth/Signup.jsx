@@ -1,56 +1,38 @@
 import React, { useState } from "react";
-import { login } from "../../store/UserSlice"; // Redux action
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom"; // Corrected redirection
+import { toast } from "react-toastify";
+import { setUser } from "../../store/authSlice";
+import { server } from "../../App";
 
 const SignUpForm = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const dispatch = useDispatch();
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Reset error
-    setSuccess(""); // Reset success message
 
     try {
       // Sending the signup request
-      const response = await axios.post(
-        "http://localhost:4000/api/auth/new",
-        { name, phone, email, password }, 
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
+      const response = await axios.post(`${server}/api/auth/new`, { name, phone, email, password }, { withCredentials: true, });
+      if (response) {
+        toast.success('response.data.message');
+        const { user } = response.data;
+        dispatch(setUser({ userInfo: user, user: user, userLogedIn: true }));
 
-      setSuccess(response.data.message); 
+      }
+      else {
+        toast.error('did not get response from signup api')
+      }
 
-      dispatch(
-        login({
-          userInfo: { name, phone, email },
-          authToken: response.data.token, 
-        })
-      );
-
-      // Storing token in localStorage
-      localStorage.setItem("authToken", response.data.token);
-      localStorage.setItem('userInfo' , JSON.stringify(response.data.user) );
-      console.log(response.data.user);
-      
-
-      // Redirecting user after successful signup
       navigate("/");
     } catch (err) {
-      setError(err.response?.data?.message || "Signup failed. Try again!"); // Error handling
+      toast.error(err.response?.data?.message || "Signup failed. Try again!"); // Error handling
     }
   };
 
@@ -59,9 +41,6 @@ const SignUpForm = () => {
       <div className="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full">
         <h1 className="text-2xl font-bold text-center mb-6">Sign Up</h1>
         <form onSubmit={handleSubmit}>
-          {error && <p className="text-red-500 mb-2">{error}</p>}
-          {success && <p className="text-green-500 mb-2">{success}</p>}
-
           {/* Input Fields */}
           <div className="mb-4">
             <label className="block text-sm font-medium mb-1">Name</label>

@@ -5,7 +5,7 @@ import { BsBag } from "react-icons/bs";
 import SearchBox from './SearchBox';
 import { MyContext } from '../../App';
 import { IoMenuSharp } from "react-icons/io5";
-import logo2 from '../../assets/logo2.png'
+import cc from '../../assets/cc.png'
 import { Link, NavLink } from 'react-router-dom';
 import { IoIosHeartEmpty } from 'react-icons/io';
 import  useAuth  from '../../hooks/useAuth';
@@ -19,9 +19,13 @@ function Header() {
   const context = useContext(MyContext);
   //Checking is loggedin
   const isLoggedIn = useAuth(); // Now it's a boolean
+  console.log(isLoggedIn);
+  
   //hadling Name 
-  const {userInfo} = useSelector((state) =>state.user)
-  const letter = userInfo.name
+  const userInfo = useSelector((state) =>state.auth.userInfo)
+  const letter = userInfo?.name ? userInfo.name.charAt(0).toUpperCase() : <CiUser />;
+  console.log(userInfo);
+  
 
   //handling Cart page 
   const handleCartPage = ()=>{
@@ -32,22 +36,21 @@ function Header() {
       return navigate("/Cart"); 
     }
   }
-// Number of Product In Cart 
-var NumberofProductInCart = '00' 
-if (!isLoggedIn) {
-  NumberofProductInCart = '00'
-} else {
-    const {items} = useSelector((state) => state.cart);
-    if (items.length >99) {
-      NumberofProductInCart = ' 99+' 
-    }
-    else if (items.length <10) {
-      NumberofProductInCart = '0'+items.length || '00' ;
-    }
-    else{
-      NumberofProductInCart = items.length || '00' ;  
+
+// Always call hooks at the top level, outside of conditions!
+const items = useSelector((state) => state.cart.items) || []; 
+
+var NumberofProductInCart = '00';
+if (isLoggedIn) {
+    if (items.length > 99) {
+        NumberofProductInCart = '99+';
+    } else if (items.length < 10) {
+        NumberofProductInCart = '0' + items.length;
+    } else {
+        NumberofProductInCart = items.length.toString();
     }
 }
+
   return (
     <div className="topHeader w-full border-solid border-[rgba(0,0,0,.1)] bg-white   ">
       <div className="top-strip bg-myyellow ">
@@ -58,13 +61,13 @@ if (!isLoggedIn) {
       <nav className="header w-full block lg:hidden  p-3  ">
         <div className='flex justify-around items-center '>
           <div><IoMenuSharp className='text-4xl text-[#1d1d4b]' /></div>
-          <Link to={'/'} className='w-full flex justify-center'><img src={logo2} className='w-28' /></Link>
+          <Link to={'/'} className='w-full flex justify-center'><img src={cc} className='w-44' /></Link>
           <div><button className='h-10 w-10 sm:h-[45px] sm:w-[45px]  sm:border rounded-full flex justify-center items-center bg-[#fff1ee] sm:active:bg-[#ffccc1] active:scale-[.95]  border-[rgba(0,0,0,0.2)]'>  <BsBag className='text-2xl sm:text-2xl text-[#ea2b0f]' /></button></div>
         </div>
       </nav>
       <nav className='navLarge p-3 hidden lg:block '>
         <div className='flex gap-6 xl:gap-16 items-center justify-center'>
-          <Link to={'/'} className='w-fit flex justify-center'><img src={logo2} className='w-28 lg:w-32 xl:w-32' /></Link>
+          <Link to={'/'} className='w-fit flex justify-center'><img src={cc} className='w-44 lg:w-44 xl:w-44' /></Link>
           <div className='w-fit'>{context.countrylist.length !== 0 && <LocationButton />}  </div>
           <div className='w-2/5'> <SearchBox Width='w-[100%]' /></div>
 
@@ -80,7 +83,7 @@ if (!isLoggedIn) {
           <div className='w-fit '>
             {
               isLoggedIn? (
-                <Link  to={'/Profile'} className='h-[45px] w-[45px] min-h-[45px] min-w-[45px]  border rounded-full flex justify-center items-center active:bg-gray-300 active:scale-95  border-[rgba(0,0,0,0.2)] text-2xl font-semibold text-[#ea2b0f]'>{letter.charAt(0).toUpperCase() || <CiUser/>} </Link>
+                <Link  to={'/Profile'} className='h-[45px] w-[45px] min-h-[45px] min-w-[45px]  border rounded-full flex justify-center items-center active:bg-gray-300 active:scale-95  border-[rgba(0,0,0,0.2)] text-2xl font-semibold text-[#ea2b0f]'>{letter} </Link>
               ):(
                 <NavLink to={'/login'} className={({isActive}) => isActive? 'text-[#ffffff] bg-[#ea2b0f] text-lg font-bold px-4 py-2 rounded-full ' : 'text-[#ea2b0f] text-lg font-bold px-4 py-2 rounded-full bg-[#fff1ee] '}>
                   LogIn

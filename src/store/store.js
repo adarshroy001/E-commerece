@@ -1,17 +1,19 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./UserSlice";
 import cartReducer from "./CartSlice";
-import productReducer from "./ProductSlice"; // Ensure naming consistency
+import productReducer from "./ProductSlice";
 import orderReducer from "./OrderSlice";
 import uiReducer from "./UiSlice";
+import authReducer from "./authSlice"; 
 
 const store = configureStore({
   reducer: {
     user: userReducer,
     cart: cartReducer,
-    products: productReducer, // Keep name consistent with slice
-    order: orderReducer, // Include if order management is implemented
-    ui: uiReducer, // Include if UI state management is needed
+    products: productReducer,
+    order: orderReducer,
+    ui: uiReducer,
+    auth: authReducer,
   },
 });
 
