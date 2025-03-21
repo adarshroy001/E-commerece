@@ -4,12 +4,17 @@ import { FiMinus, FiPlus, FiTrash2 } from 'react-icons/fi';
 import axios from "axios";
 import { server } from "../../App";
 import { toast } from "react-toastify";
-import { setTotalQuantity } from '../../store/CartSlice'
+import { setTotalQuantity ,increaseQuantity ,decreaseQuantity } from '../../store/CartSlice'
 
 const Cart = () => {
+  const shippingCost = 15 ;
   const dispatch = useDispatch();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true); 
+  const [totalPrice , setTotalPrice] = useState(0) ;
+  const [Allcharges , setAllcharges] = useState(0) ;
+  const [delcharges , setdelcharges] = useState(0) ;
+  
   
   // Fetching Cart 
   useEffect(() => {
@@ -18,7 +23,7 @@ const Cart = () => {
       .then((res) => {
         const cartItems = res.data.items || []; // Ensure it's always an array
         setItems(cartItems);
-  
+        setTotalPrice(res.data.totalPrice)
         // Calculate total quantity correctly
         const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
         dispatch(setTotalQuantity(totalQuantity));
@@ -29,34 +34,87 @@ const Cart = () => {
       })
      .finally(() => setLoading(false));
   }, []);
+//handling remove -1 Item 
+const handleDecrease = (productId,quantity) => {
+  axios.put(`${server}/api/cart/update`, { productId, quantity }, { withCredentials: true })
+    .then(()=>{
+      axios.get(`${server}/api/cart`, { withCredentials: true })
+      .then((res) => {
+        const cartItems = res.data.items || []; // Ensure it's always an array
+        setItems(cartItems);
+        setTotalPrice(res.data.totalPrice)
+        // Calculate total quantity correctly
+        const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+        dispatch(setTotalQuantity(totalQuantity));
+      })
+    })
+    .catch(() => toast.error("Failed to update quantity."));
+}
+//handling add +1 item
+const handleIncrease = (productId,quantity) => {
+  axios.put(`${server}/api/cart/update`, { productId, quantity }, { withCredentials: true })
+  .then(()=>{
+    axios.get(`${server}/api/cart`, { withCredentials: true })
+    .then((res) => {
+      const cartItems = res.data.items || []; // Ensure it's always an array
+      setItems(cartItems);
+      setTotalPrice(res.data.totalPrice)
+
+      // Calculate total quantity correctly
+      const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+      dispatch(setTotalQuantity(totalQuantity));
+    })
+  })
+    .catch(() => toast.error("Failed to update quantity."));
+}
+//handle delete cart item 
+const handleDelete = (productId)=>{
+  axios.delete(`${server}/api/cart/remove/${productId}`,{ withCredentials: true })
+    .then(()=>{
+      axios.get(`${server}/api/cart`, { withCredentials: true })
+      .then((res) => {
+        const cartItems = res.data.items || []; // Ensure it's always an array
+        setItems(cartItems);
+        setTotalPrice(res.data.totalPrice)
   
+        // Calculate total quantity correctly
+        const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+        dispatch(setTotalQuantity(totalQuantity));
+      })
+    })
+    .catch((e)=>{toast.error(e)})
+}
+//handling clear Cart
+const handleClearCart = ()=>{
+  axios.delete(`${server}/api/cart/clear`,{ withCredentials: true })
+  .then(()=>{
+    axios.get(`${server}/api/cart`, { withCredentials: true })
+    .then((res) => {
+      const cartItems = res.data.items || []; // Ensure it's always an array
+      setItems(cartItems);
+      setTotalPrice(res.data.totalPrice)
 
+      // Calculate total quantity correctly
+      const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+      dispatch(setTotalQuantity(totalQuantity));
+    })
+  })
 
-
-  const handleRemoveItem = (productId) => {
-    dispatch(removeFromCart(productId));
-  };
-
-  const handleQuantityChange = (productId, quantity) => {
-    if (quantity > 0) {
-      dispatch(updateCart({ productId, quantity }));
-    }
-  };
-
-  const handleClearCart = () => {
-    dispatch(clearCart());
-  };
-
-  //
-
+}
+//Promo code
+  const promoCode = ''
   function setPromoCode(){
 
   }
-  const promoCode = ''
-  const subtotal = ''
-  const shippingCost = ''
-  const total = ''
-  const [shippingMethod,setShippingMethod] = useState('')
+  const [shippingMethod,setShippingMethod] = useState('free')
+
+  useEffect(()=>{
+    if (shippingMethod=='express') {
+      setdelcharges(15)
+      setAllcharges(totalPrice+15)
+    }
+    else{setAllcharges(totalPrice)}
+  },[shippingMethod,setShippingMethod , totalPrice ,setAllcharges])
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -80,14 +138,23 @@ const Cart = () => {
                       <div className="mt-4 flex items-center justify-between">
                         <div className="flex items-center space-x-3">
                           <button
-                            // onClick={() => updateQuantity(item.id, -1)}
+                            onClick={ ()=> {
+                               if (item.quantity<2) {
+                                 item.quantity = item.quantity 
+                               }
+                               else{
+                                item.quantity = item.quantity - 1 ;
+                               }
+                              handleDecrease(item.productId._id , item.quantity)}
+
+                            }
                             className="p-1 rounded-full hover:bg-gray-100"
                           >
                             <FiMinus className="w-5 h-5" />
                           </button>
                           <span className="text-lg font-medium">{item.quantity}</span>
                           <button
-                            // onClick={() => updateQuantity(item.id, 1)}
+                            onClick={ ()=> handleIncrease(item.productId._id ,item.quantity+1)}
                             className="p-1 rounded-full hover:bg-gray-100"
                           >
                             <FiPlus className="w-5 h-5" />
@@ -98,7 +165,7 @@ const Cart = () => {
                             ${(item.productId.price * item.quantity).toLocaleString()}
                           </span>
                           <button
-                            // onClick={() => removeItem(item.id)}
+                            onClick={() => handleDelete(item.productId._id)}
                             className="text-red-500 hover:text-red-700"
                           >
                             <FiTrash2 className="w-5 h-5" />
@@ -113,7 +180,7 @@ const Cart = () => {
               {items.length > 0 && (
                 <div className="p-6">
                   <button
-                    // onClick={clearCart}
+                    onClick={handleClearCart}
                     className="text-blue-600 hover:text-blue-800 font-medium"
                   >
                     Clear Cart
@@ -180,15 +247,15 @@ const Cart = () => {
               <div className="border-t border-gray-200 pt-4 space-y-2">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Subtotal</span>
-                  <span className="font-medium">${subtotal.toLocaleString()}</span>
+                  <span className="font-medium">${totalPrice}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Shipping</span>
-                  <span className="font-medium">${shippingCost.toLocaleString()}</span>
+                  <span className="font-medium">${delcharges}</span>
                 </div>
                 <div className="flex justify-between text-lg font-bold">
                   <span>Total</span>
-                  <span>${total.toLocaleString()}</span>
+                  <span>${Allcharges}</span>
                 </div>
               </div>
 

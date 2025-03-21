@@ -5,7 +5,7 @@ import { BsBag } from "react-icons/bs";
 import SearchBox from './SearchBox';
 import { MyContext } from '../../App';
 import { IoMenuSharp } from "react-icons/io5";
-import cc from '../../assets/cc.png'
+import cc from '../../assets/cc4.png'
 import { Link, NavLink } from 'react-router-dom';
 import { IoIosHeartEmpty } from 'react-icons/io';
 import  useAuth  from '../../hooks/useAuth';
