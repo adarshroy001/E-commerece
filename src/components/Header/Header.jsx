@@ -34,18 +34,13 @@ function Header() {
   }
 
 // Always call hooks at the top level, outside of conditions!
-const items = useSelector((state) => state.cart.items) || []; 
-
-var NumberofProductInCart = '00';
-if (isLoggedIn) {
-    if (items.length > 99) {
-        NumberofProductInCart = '99+';
-    } else if (items.length < 10) {
-        NumberofProductInCart = '0' + items.length;
-    } else {
-        NumberofProductInCart = items.length.toString();
-    }
+const items = useSelector((state) => state.cart.totalQuantity) || 0; 
+console.log('No of Items is :',items);
+var NumberofProductInCart = items;
+if (NumberofProductInCart>99) {
+  NumberofProductInCart = '99+'
 }
+
 
   return (
     <div className="topHeader w-full border-solid border-[rgba(0,0,0,.1)] bg-white   ">
@@ -74,7 +69,7 @@ if (isLoggedIn) {
             <button 
             onClick={handleCartPage}
             className='h-[45px] w-[45px] min-h-[45px] min-w-[45px]  border rounded-full flex justify-center items-center bg-[#fff1ee] active:bg-[#ffccc1] active:scale-95  border-[rgba(0,0,0,0.2)]'>  <BsBag className='text-2xl text-[#ea2b0f] ' /></button>
-            <span className="count absolute top-[-0.4rem] right-[-0.5rem]  flex justify-center items-center  rounded-full bg-[#ea2b0f] text-white h-[1.8rem] w-[1.8rem] text-sm">{NumberofProductInCart}</span>
+            <span className="count absolute top-[-0.6rem] right-[-0.7rem]  flex justify-center items-center  rounded-full bg-[#ea2b0f] text-white h-[2rem] w-[2rem] text-sm">{NumberofProductInCart}</span>
           </div>
           <div className='w-fit '>
             {

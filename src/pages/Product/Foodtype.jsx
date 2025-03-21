@@ -8,14 +8,19 @@ import { useLocation, useParams } from 'react-router-dom';
 import { server } from '../../App';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useSelector , useDispatch } from 'react-redux';
+import { setTotalQuantity } from '../../store/CartSlice'
 
 function Foodtype() {
+  const dispatch = useDispatch() ;
   const location = useLocation();
   const { id } = useParams(); // Extract product ID from URL
   const [product, setProduct] = useState(location.state?.product || null);
   const [loading, setLoading] = useState(!product);
   const [error, setError] = useState(null);
   const [quantity, setQuantity] = useState(1); // Moved before useEffect and conditionals
+  const noOfProduct  =  useSelector((state) => state.cart.totalQuantity) || 0; 
+
 
   useEffect(() => {
     if (!product) {
@@ -52,22 +57,20 @@ function Foodtype() {
   //add to cart 
   const addProductToCart = async () => {
     try {
-      await axios.post(`${server}/api/cart/add`, {
-        productId: product._id,
-        quantity: quantity
-      },
-        {
-          headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZDJhN2Q5OWViMjY1YTY0Y2NhYTE5YSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzQxODU4Nzc4LCJleHAiOjE3NDI0NjM1Nzh9.gLQ0NnLmq858uDt22I4mvijBb1RHP0IX0R6dzLdHjD0`, // If using JWT auth
-          },
-        })
+      await axios.post(`${server}/api/cart/add`, 
+        { productId: product._id, quantity: quantity }, // Request body
+        { withCredentials: true } // Config (credentials for cookies)
+      );
+      dispatch(setTotalQuantity(noOfProduct+quantity));
       toast.success("Item added to cart!");
+      setQuantity(1) 
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to add item to cart.");
       console.error("Add to cart error:", error);
 
     }
   }
+  
 
   return (
     <div className="w-full overflow-hidden m-auto mt-5 mb-10 pt-4 sm:pt-8 pb-4 sm:pb-8 z-10 relative">

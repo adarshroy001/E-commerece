@@ -22,10 +22,11 @@ import { useDispatch } from 'react-redux';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import ProtectedRoute from './protected/ProtectedRoute';
 import { fetchProducts } from './store/ProductSlice';
-import { fetchCart } from './store/CartSlice';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { setUser } from './store/authSlice';
+import { setTotalQuantity } from './store/CartSlice'
+
 
 const MyContext = createContext();
 export const server = "http://localhost:4000";
@@ -53,6 +54,22 @@ useEffect(() => {
               }));
     }); 
 }, []);
+
+//No of product in cart handling 
+const [items, setItems] = useState([]);
+  // Fetching Cart 
+  useEffect(() => { 
+    axios.get(`${server}/api/cart`, { withCredentials: true })
+      .then((res) => {
+        const cartItems = res.data.items || []; // Ensure it's always an array
+        const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+        dispatch(setTotalQuantity(totalQuantity));
+      })
+      .catch((e) => {
+        toast.error(e.response?.data?.message );
+        console.error("Cart fetch error:", e);
+      })
+  }, []);
 
   const [countrylist, setCountryList] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState('');

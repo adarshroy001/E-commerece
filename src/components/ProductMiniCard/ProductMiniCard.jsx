@@ -5,10 +5,17 @@ import Rating from '@mui/material/Rating';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { server } from '../../App';
+import { useSelector , useDispatch } from 'react-redux';
+import { setTotalQuantity } from '../../store/CartSlice'
+
 
 
 function ProductMiniCard({ className = '', product }) {
   const [ProductData, SetProductData] = useState('');
+  const noOfProduct  =  useSelector((state) => state.cart.totalQuantity) || 0; 
+  const dispatch = useDispatch() ;
+
 
   useEffect(() => {
     if (product?.name) {
@@ -19,15 +26,11 @@ function ProductMiniCard({ className = '', product }) {
   const addProductToCart = async () => {
 
     try {
-      await axios.post('http://localhost:4000/api/cart/add', {
-        productId: product._id,
-        quantity: 1
-      },
-        {
-          headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZDJhN2Q5OWViMjY1YTY0Y2NhYTE5YSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzQxODU4Nzc4LCJleHAiOjE3NDI0NjM1Nzh9.gLQ0NnLmq858uDt22I4mvijBb1RHP0IX0R6dzLdHjD0`, // If using JWT auth
-          },
-        })
+      await axios.post(`${server}/api/cart/add`, 
+        { productId: product._id, quantity: 1 }, 
+        { withCredentials: true }
+      );
+      dispatch(setTotalQuantity(noOfProduct+1));
       toast.success("Item added to cart!");
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to add item to cart.");

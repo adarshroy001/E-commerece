@@ -1,16 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchCart, removeFromCart, updateCart, clearCart } from "../../store/CartSlice";
+import { useDispatch } from "react-redux";
 import { FiMinus, FiPlus, FiTrash2 } from 'react-icons/fi';
+import axios from "axios";
+import { server } from "../../App";
+import { toast } from "react-toastify";
+import { setTotalQuantity } from '../../store/CartSlice'
 
 const Cart = () => {
-
   const dispatch = useDispatch();
-  const { items, loading } = useSelector((state) => state.cart);
-
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true); 
+  
+  // Fetching Cart 
   useEffect(() => {
-    dispatch(fetchCart());
-  }, [dispatch]);
+    setLoading(true); 
+    axios.get(`${server}/api/cart`, { withCredentials: true })
+      .then((res) => {
+        const cartItems = res.data.items || []; // Ensure it's always an array
+        setItems(cartItems);
+  
+        // Calculate total quantity correctly
+        const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+        dispatch(setTotalQuantity(totalQuantity));
+      })
+      .catch((e) => {
+        toast.error(e.response?.data?.message );
+        console.error("Cart fetch error:", e);
+      })
+     .finally(() => setLoading(false));
+  }, []);
+  
+
+
 
   const handleRemoveItem = (productId) => {
     dispatch(removeFromCart(productId));
@@ -45,7 +66,7 @@ const Cart = () => {
           {/* Cart Items */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-lg shadow">
-              {items.map((item) => (
+              {loading ?  <div className=" animate-spin h-6 w-6 border-t-4 border-blue-500 rounded-full"></div> : items.map((item) => (
                 <div key={item.productId._id} className="p-6 border-b border-gray-200 last:border-0">
                   <div className="flex items-center space-x-4">
                     <img
