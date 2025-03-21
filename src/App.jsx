@@ -19,43 +19,40 @@ import Error from './pages/Error/Error';
 import SignInForm from './pages/Auth/Login';
 import SignUpForm from './pages/Auth/Signup';
 import { useDispatch } from 'react-redux';
-import { login } from './store/UserSlice';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import ProtectedRoute from './protected/ProtectedRoute';
 import { fetchProducts } from './store/ProductSlice';
 import { fetchCart } from './store/CartSlice';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { setUser } from './store/authSlice';
 
 const MyContext = createContext();
 export const server = "http://localhost:4000";
 
-
 function App() {
-// handlinf authentication 
-const dispatch = useDispatch();
-useEffect(() => {
-  // Fetch Products
+  const dispatch = useDispatch();
   dispatch(fetchProducts());
 
-  // Fetching Auth Info
-  const storedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
-  const storedToken = localStorage.getItem("authToken");
-
-  if (storedToken && storedUserInfo) {
-      dispatch(
-          login({
-              userInfo: storedUserInfo,
-              authToken: storedToken,
-          })
-      );
-
-      // Fetch Cart after login
-      dispatch(fetchCart());
-  }
-}, [dispatch]);
-
-
+// Auth check by cheking is userInfo and dipatching userInfo and isLogedIn 
+useEffect(() => {
+  axios.get(`${server}/api/auth/getUserInfo`, { withCredentials: true })
+    .then((res) =>{
+      const userData =res.data.user ;      
+      dispatch(setUser({
+                      userLogedIn: true,
+                      user: userData, 
+                      userInfo: userData
+                  }));
+    } )
+    .catch((e) => {
+      dispatch(setUser({
+                  userLogedIn: false,
+                  user: null,
+                  userInfo: null
+              }));
+    }); 
+}, []);
 
   const [countrylist, setCountryList] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState('');

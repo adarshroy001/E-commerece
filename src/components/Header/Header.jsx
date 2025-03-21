@@ -18,14 +18,10 @@ function Header() {
   const navigate = useNavigate();
   const context = useContext(MyContext);
   //Checking is loggedin
-  const isLoggedIn = useAuth(); // Now it's a boolean
-  console.log(isLoggedIn);
-  
+  const isLoggedIn = useAuth();   
   //hadling Name 
   const userInfo = useSelector((state) =>state.auth.userInfo)
   const letter = userInfo?.name ? userInfo.name.charAt(0).toUpperCase() : <CiUser />;
-  console.log(userInfo);
-  
 
   //handling Cart page 
   const handleCartPage = ()=>{

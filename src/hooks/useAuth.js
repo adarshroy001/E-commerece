@@ -1,6 +1,8 @@
 import { useSelector } from "react-redux";
 
 const useAuth = () => {
-    return useSelector((state) => state.auth.userLogedIn);
+    const isLoggedIn = useSelector((state) => state.auth.userLogedIn); // Use correct key
+    return isLoggedIn;
 };
-export default useAuth
+
+export default useAuth;

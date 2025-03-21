@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../../store/UserSlice";
+import { logout } from "../../store/authSlice";
 import { useNavigate } from "react-router-dom";
 import { FiMail, FiPhone, FiHeart, FiPackage, FiLogOut } from "react-icons/fi";
 
@@ -9,10 +9,10 @@ const UserProfile = () => {
   const navigate = useNavigate();
 
   // Get user info from Redux store
-  const { userInfo } = useSelector((state) => state.user);
+  const  userInfo  = useSelector((state) => state.auth.userInfo);
 
   // Local state to hold user data (fallback to localStorage if Redux state is empty)
-  const [userData, setUserData] = useState(userInfo || JSON.parse(localStorage.getItem("userInfo")) || {});
+  const [userData, setUserData] = useState(userInfo ||  {name:'User',no:'Number',email:'Email'});
 
   useEffect(() => {
     if (userInfo && Object.keys(userInfo).length > 0) {
@@ -27,8 +27,6 @@ const UserProfile = () => {
 
   const handleLogout = () => {
     dispatch(logout()); // Clear Redux state
-    localStorage.removeItem("authToken"); // Remove token from localStorage
-    localStorage.removeItem("userInfo"); // Remove user data from localStorage
     navigate("/"); // Redirect to home
   };
 

@@ -23,6 +23,7 @@ const SignUpForm = () => {
       if (response) {
         toast.success('response.data.message');
         const { user } = response.data;
+        
         dispatch(setUser({ userInfo: user, user: user, userLogedIn: true }));
 
       }
