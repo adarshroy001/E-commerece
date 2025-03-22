@@ -53,7 +53,7 @@ useEffect(() => {
                   userInfo: null
               }));
     }); 
-}, []);
+}, [dispatch]);
 
 //No of product in cart handling 
 const [items, setItems] = useState([]);
@@ -69,7 +69,7 @@ const [items, setItems] = useState([]);
         toast.error(e.response?.data?.message );
         console.error("Cart fetch error:", e);
       })
-  }, []);
+  }, [dispatch]);
 
   const [countrylist, setCountryList] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState('');

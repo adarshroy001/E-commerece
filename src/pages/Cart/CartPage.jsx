@@ -4,10 +4,11 @@ import { FiMinus, FiPlus, FiTrash2 } from 'react-icons/fi';
 import axios from "axios";
 import { server } from "../../App";
 import { toast } from "react-toastify";
-import { setTotalQuantity ,increaseQuantity ,decreaseQuantity } from '../../store/CartSlice'
+import { setTotalQuantity  } from '../../store/CartSlice'
+const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY_ID;
+
 
 const Cart = () => {
-  const shippingCost = 15 ;
   const dispatch = useDispatch();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true); 
@@ -16,7 +17,7 @@ const Cart = () => {
   const [delcharges , setdelcharges] = useState(0) ;
   
   
-  // Fetching Cart 
+// Fetching Cart 
   useEffect(() => {
     setLoading(true); 
     axios.get(`${server}/api/cart`, { withCredentials: true })
@@ -115,6 +116,47 @@ const handleClearCart = ()=>{
     }
     else{setAllcharges(totalPrice)}
   },[shippingMethod,setShippingMethod , totalPrice ,setAllcharges])
+
+  //PayMent Integration 
+const handleCheckout = async () => {
+  try {
+    //Call backend to create an order
+    const { data } = await axios.post(`${server}/api/payment/create-order`, { amount: Allcharges });
+    //Extract order ID from response
+    const { id: order_id, amount, currency } = data.order;
+    //Open Razorpay payment popup
+    const options = {
+      key: razorpayKey, // Replace with actual Razorpay Key ID
+      amount,
+      currency,
+      name: "LowKeyCart",
+      description: "Secure Checkout",
+      order_id,
+      handler: async (response) => {
+        // Step 4: Handle successful payment
+        toast.success("Payment Successful!")
+        console.log("Payment ID:", response.razorpay_payment_id);
+        console.log("Order ID:", response.razorpay_order_id);
+
+        // Redirect to Order Confirmation Page
+        window.location.href = "/order-confirmation";
+      },
+      prefill: {
+        name: "Test User",
+        email: "test@example.com",
+        contact: "9999999999",
+      },
+      theme: { color: "#3399cc" },
+    };
+
+    const razorpayInstance = new window.Razorpay(options);
+    razorpayInstance.open();
+  } catch (error) {
+    alert("Payment Failed!");
+    console.error(error);
+  }
+};
+
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -259,7 +301,9 @@ const handleClearCart = ()=>{
                 </div>
               </div>
 
-              <button className="w-full bg-myblue text-white py-3 px-4 rounded-md hover:bg-[#22377b] font-medium">
+              <button 
+              onClick={handleCheckout}
+              className="w-full bg-myblue text-white py-3 px-4 rounded-md hover:bg-[#22377b] font-medium">
                 Proceed to Checkout
               </button>
             </div>

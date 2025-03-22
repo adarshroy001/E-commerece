@@ -3,6 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../store/authSlice";
 import { useNavigate } from "react-router-dom";
 import { FiMail, FiPhone, FiHeart, FiPackage, FiLogOut } from "react-icons/fi";
+import axios from "axios";
+import { server } from "../../App";
+import { toast } from "react-toastify";
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -26,9 +29,19 @@ const UserProfile = () => {
   }, [userInfo]); // Runs when Redux userInfo changes
 
   const handleLogout = () => {
-    dispatch(logout()); // Clear Redux state
-    navigate("/"); // Redirect to home
+    axios.delete(`${server}/api/auth/logout`, { withCredentials: true }) // Remove the empty object
+      .then((res) => {
+        toast.success('Logout successful');
+        dispatch(logout()); // Clear Redux state
+        dispatch(setTotalQuantity(0));
+        navigate("/"); // Redirect to home
+      })
+      .catch((err) => {
+        toast.error("Logout failed");
+        console.error(err);
+      });
   };
+  
 
   return (
     <div className="min-h-screen md:min-h-[80vh] bg-gradient-to-br from-gray-50 to-gray-100 p-4 md:p-8 flex items-center justify-center">
