@@ -35,13 +35,10 @@ function Header() {
 
 // Always call hooks at the top level, outside of conditions!
 const items = useSelector((state) => state.cart.totalQuantity) || 0; 
-console.log('No of Items is :',items);
 var NumberofProductInCart = items;
 if (NumberofProductInCart>99) {
   NumberofProductInCart = '99+'
 }
-
-
   return (
     <div className="topHeader w-full border-solid border-[rgba(0,0,0,.1)] bg-white   ">
       <div className="top-strip bg-myyellow ">

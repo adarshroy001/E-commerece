@@ -16,7 +16,8 @@ export const fetchProducts = createAsyncThunk(
 );
 
 const initialState = {
-  products: [], // Stores product details
+  products: [],
+  searchQuery: [], // Stores product details
   loading: false, // Loading flag
   error: null, // Stores error message
 };
@@ -24,6 +25,14 @@ const initialState = {
 const productSlice = createSlice({
   name: "products", // Ensure consistency with `configureStore`
   initialState,
+  reducers: {
+    setProducts: (state, action) => {
+      state.products = action.payload;
+    },
+    setSearchQuery: (state, action) => {
+      state.searchQuery = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => {
@@ -41,5 +50,6 @@ const productSlice = createSlice({
   },
 });
 
+export const { setProducts, setSearchQuery } = productSlice.actions;
 export default productSlice.reducer;
 

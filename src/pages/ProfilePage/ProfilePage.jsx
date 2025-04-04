@@ -6,6 +6,7 @@ import { FiMail, FiPhone, FiHeart, FiPackage, FiLogOut } from "react-icons/fi";
 import axios from "axios";
 import { server } from "../../App";
 import { toast } from "react-toastify";
+import { setTotalQuantity } from "../../store/CartSlice";
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -37,7 +38,6 @@ const UserProfile = () => {
         navigate("/"); // Redirect to home
       })
       .catch((err) => {
-        toast.error("Logout failed");
         console.error(err);
       });
   };

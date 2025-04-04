@@ -26,6 +26,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { setUser } from './store/authSlice';
 import { setTotalQuantity } from './store/CartSlice'
+import SearchResults from './pages/SearchResults/SearchResults';
 
 
 const MyContext = createContext();
@@ -113,6 +114,7 @@ useEffect(() => {
           <Route path="/Fashion" exact={true} element={<Fashion />} />
           <Route path="/Bags" exact={true} element={<Bags />} />
           <Route path="/Footware" exact={true} element={<Footware />} />
+          <Route path="/search" exact={true} element={<SearchResults />} />
         {/* Auth */}
           <Route path="/signup" exact={true} element={<SignUpForm/>}/>
           <Route path="/login" exact={true} element={<SignInForm/>}/>

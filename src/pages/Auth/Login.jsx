@@ -6,6 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { setUser } from "../../store/authSlice";
 import { server } from "../../App";
+import { setTotalQuantity } from "../../store/CartSlice";
 
 const SignInForm = ({ toggleForm }) => {
   const [email, setEmail] = useState("");
@@ -22,7 +23,14 @@ const SignInForm = ({ toggleForm }) => {
       if (loginData) {
         const { data: userData } = await axios.get(`${server}/api/auth/getUserInfo`, { withCredentials: true });
         const { user } = userData;  // Extract user object
-        dispatch(setUser({ userInfo: user, user: user, userLogedIn: true }));        
+        dispatch(setUser({ userInfo: user, user: user, userLogedIn: true }));   
+        //
+      axios.get(`${server}/api/cart`, { withCredentials: true })
+      .then((res) => {
+        const cartItems = res.data.items || []; // Ensure it's always an array
+        const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+        dispatch(setTotalQuantity(totalQuantity));
+      })
         toast.success('LogIn Successful')
       }
       else{

@@ -38,14 +38,15 @@ function ProductMiniCard({ className = '', product }) {
 
     }
   }
-
+  const price = product?.price || 0;
+  const discountPrice = (price * 9) / 10;
   return (
     <Link 
       state={{ product }}
       className={`w-full bg-white shadow-lg rounded-lg overflow-hidden group sm:hover:scale-[.99] sm:hover:border-[#c9dcde] sm:hover:border transition ${className}`}>
       <Link to={`/product/${product._id}`} className="relative">
         <div className="absolute top-2 left-2 bg-mypink text-white text-xs font-bold py-1 px-2.5 rounded">
-          24%
+          10%
         </div>
         <div className="absolute top-9 left-2 bg-[#71778e] text-white text-xs font-bold py-1 px-2.5 rounded">
           Best Seller
@@ -77,8 +78,8 @@ function ProductMiniCard({ className = '', product }) {
           <Rating name="half-rating-read" defaultValue={4.4} precision={0.1} readOnly />
         </div>
         <div className="mt-3">
-          <span className="text-gray-400 line-through text-xs sm:text-sm">$4.29</span>
-          <span className="text-red-500 text-sm sm:text-lg font-semibold ml-2">$3.29</span>
+          <span className="text-gray-400 line-through text-xs sm:text-sm">${price}</span>
+          <span className="text-red-500 text-sm sm:text-lg font-semibold ml-2">${discountPrice}.</span>
         </div>
         </Link>
         <button
