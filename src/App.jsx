@@ -56,7 +56,6 @@ useEffect(() => {
 }, [dispatch]);
 
 //No of product in cart handling 
-const [items, setItems] = useState([]);
   // Fetching Cart 
   useEffect(() => { 
     axios.get(`${server}/api/cart`, { withCredentials: true })
@@ -66,7 +65,7 @@ const [items, setItems] = useState([]);
         dispatch(setTotalQuantity(totalQuantity));
       })
       .catch((e) => {
-        toast.error(e.response?.data?.message );
+        // toast.error(e.response?.data?.message );
         console.error("Cart fetch error:", e);
       })
   }, [dispatch]);
