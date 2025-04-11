@@ -9,7 +9,7 @@ import Catg from './components/CategrySection/Catg';
 import Footer from './components/Footer/Footer';
 import Food from './pages/Food/Food';
 import Cakes from './pages/Cakes/Cakes';
-import Essential from './pages/College-Essential/essential';
+import Essential from './pages/College-Essential/Essential';
 import Fashion from './pages/Fashion/Fashion';
 import Bags from './pages/Bags/Bags';
 import Footware from './pages/Footware/Footware';
