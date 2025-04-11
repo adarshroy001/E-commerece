@@ -21,7 +21,7 @@ import SignUpForm from './pages/Auth/Signup';
 import { useDispatch } from 'react-redux';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import ProtectedRoute from './protected/ProtectedRoute';
-import { fetchProducts } from './store/ProductSlice';
+import { fetchProducts } from './store/productSlice';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { setUser } from './store/authSlice';
