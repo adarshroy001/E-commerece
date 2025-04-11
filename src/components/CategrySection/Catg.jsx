@@ -1,5 +1,5 @@
 import IndividualCatg from '../Header/IndividualCatg';
-import AllCatg from '../Header/Allcatg';
+import AllCatg from '../Header/AllCatg';
 
 function Catg() {
   return (
