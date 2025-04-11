@@ -30,7 +30,7 @@ import SearchResults from './pages/SearchResults/SearchResults';
 
 
 const MyContext = createContext();
-export const server = "http://localhost:4000";
+export const server = "https://ecom-backend-4mun.onrender.com";
 
 function App() {
   const dispatch = useDispatch();
