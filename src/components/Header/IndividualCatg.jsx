@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import food from '../../Assets/iconsforheader/cutlery.png';
+import food from '../../assets/iconsforheader/cutlery.png';
 import cake from '../../Assets/iconsforheader/birthday-cake.png';
 import Essential from '../../Assets/iconsforheader/calculator.png';
 import Fashion from '../../Assets/iconsforheader/dress.png';
